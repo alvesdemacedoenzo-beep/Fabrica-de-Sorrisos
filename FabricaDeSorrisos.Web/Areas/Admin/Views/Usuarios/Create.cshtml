@@ -1,0 +1,73 @@
+﻿@model FabricaDeSorrisos.Web.Areas.Admin.Controllers.UsuarioFormViewModel
+@{
+    ViewData["Title"] = "Novo Usuário";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link rel="stylesheet" href="~/css/areas/admin/usuarios.css" />
+
+<div class="usuarios-container container-fluid p-0" style="max-width: 800px;">
+    <div class="d-flex align-items-center mb-4">
+        <a asp-action="Index" class="btn-back me-3" title="Voltar">
+            <i class="bi bi-arrow-left fs-5"></i>
+        </a>
+        <div>
+            <h2 class="page-title">Novo Usuário</h2>
+            <p class="page-subtitle mb-0">Cadastre um novo administrador, gerente ou cliente.</p>
+        </div>
+    </div>
+
+    <form asp-action="Create">
+        <partial name="_Form" model="Model" />
+    </form>
+</div>
+
+<div class="modal fade" id="modalErroSenha" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content modal-content-error">
+            <div class="modal-header-error">
+                <div class="error-icon-wrapper">
+                    <i class="bi bi-shield-lock-fill fs-1"></i>
+                </div>
+                <h4 class="fw-bold mb-1">Senha Inválida</h4>
+                <p class="mb-0 opacity-75 small">Precisamos fortalecer a segurança!</p>
+            </div>
+            <div class="modal-body-error">
+                <p class="text-muted mb-2">A senha informada não atende aos requisitos de segurança do sistema. Por favor, corrija os itens abaixo:</p>
+                
+                <ul class="error-list">
+                    @if (ViewBag.ErrosSenha != null)
+                    {
+                        foreach (var erro in (List<string>)ViewBag.ErrosSenha)
+                        {
+                            <li><i class="bi bi-x-circle-fill"></i> @erro</li>
+                        }
+                    }
+                </ul>
+
+                <div class="mt-4">
+                    <button type="button" class="btn-fix-password" data-bs-dismiss="modal">
+                        Entendi, vou corrigir
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Verifica se o ViewBag mandou erros de senha
+            var temErros = '@(ViewBag.ErrosSenha != null ? "sim" : "nao")';
+
+            if (temErros === "sim") {
+                var myModal = new bootstrap.Modal(document.getElementById('modalErroSenha'));
+                myModal.show();
+            }
+        });
+    </script>
+}

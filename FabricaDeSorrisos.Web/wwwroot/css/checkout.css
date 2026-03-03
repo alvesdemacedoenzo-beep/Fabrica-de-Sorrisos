@@ -1,0 +1,142 @@
+﻿/* =========================================
+   ESTILOS EXCLUSIVOS DO CHECKOUT
+   ========================================= */
+
+/* CORREÇÃO: Remove a barra de rolagem horizontal (Mexer pros lados) */
+body {
+    overflow-x: hidden !important;
+}
+
+/* Esconde os elementos globais para um Checkout Limpo */
+header, .footer-fabrica, .chat-widget-fixed, .btn-chat-float {
+    display: none !important;
+}
+
+/* 1. REMOVE O FUNDO BRANCO GLOBAL E DEIXA A TELA TODA CINZA CLARO */
+body, .content-main {
+    background-color: #f0f2f5 !important;
+    padding-top: 0 !important;
+}
+
+/* 2. FORÇA A TELA A CRESCER E PERMITE QUE O RODAPÉ VÁ PARA O FUNDO */
+.content-main, main[role="main"] {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding-bottom: 0 !important;
+    min-height: 100vh;
+}
+
+/* Estilo das caixas separadas (Quadros Brancos) */
+.checkout-box {
+    background-color: white;
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+    padding: 25px;
+}
+
+/* --- ESTILO DAS CAIXAS DE TEXTO (Label na Linha) --- */
+.input-custom-container {
+    position: relative;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+    .input-custom-container label {
+        position: absolute;
+        top: -10px;
+        left: 15px;
+        background-color: white;
+        padding: 0 8px;
+        color: #000269;
+        font-weight: bold;
+        font-size: 0.85rem;
+        z-index: 5;
+    }
+
+    .input-custom-container .form-control {
+        border-radius: 12px;
+        border: 1px solid #ced4da;
+        padding: 12px 15px;
+        box-shadow: none;
+        background-color: white !important;
+    }
+
+        .input-custom-container .form-control:focus {
+            border-color: #000269;
+            box-shadow: 0 0 0 0.2rem rgba(0, 2, 105, 0.1);
+        }
+
+/* Botão Redondo de Voltar */
+.btn-voltar-redondo {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    color: #9900ff;
+    border: 1px solid #e0e0e0;
+    transition: 0.3s;
+}
+
+    .btn-voltar-redondo:hover {
+        background-color: #9900ff;
+        color: white;
+        transform: scale(1.05);
+    }
+
+/* 3. RODAPÉ ROSA ESTICADO DE PONTA A PONTA E GRUDADO NO FUNDO */
+.footer-checkout-rosa {
+    background-color: #F66CD8;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    margin-left: -50vw;
+    padding: 30px 0;
+    margin-top: auto;
+}
+
+/* =========================================
+   ESTILOS DO MODAL ACADÊMICO
+   ========================================= */
+.modal-academico .modal-content {
+    border-radius: 25px;
+    border: none;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    margin-top: 50px;
+}
+
+.modal-academico .icon-box {
+    width: 90px;
+    height: 90px;
+    background: linear-gradient(135deg, #9900ff 0%, #6f42c1 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    margin: -45px auto 20px auto;
+    box-shadow: 0 10px 25px rgba(153, 0, 255, 0.4);
+    border: 5px solid white;
+}
+
+.btn-modal-confirm {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    border: none;
+    color: white;
+    font-weight: 800;
+    padding: 15px 30px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
+    transition: transform 0.2s;
+}
+
+    .btn-modal-confirm:hover {
+        transform: scale(1.05);
+        color: white;
+    }

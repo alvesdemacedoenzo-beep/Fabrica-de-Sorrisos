@@ -1,0 +1,6 @@
+@FabricaDeSorrisos.Api_HostAddress = http://localhost:5259
+
+GET {{FabricaDeSorrisos.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

@@ -1,0 +1,148 @@
+﻿@{
+    ViewData["Title"] = "Sobre Nós";
+}
+
+@* --- PARTE 1: QUEM SOMOS (BRANCO) --- *@
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h2 class="titulo-quem-somos display-5">QUEM SOMOS?</h2>
+    </div>
+
+    <div class="row align-items-center g-5">
+        @* Texto à esquerda *@
+        <div class="col-md-6 text-secondary lh-lg">
+            <p>
+                A Fábrica de Sorrisos foi criada com o propósito de resgatar a magia do brincar,
+                acreditando que os brinquedos fazem parte de momentos importantes da infância e
+                ajudam a construir memórias, aprendizados e conexões entre crianças e famílias.
+            </p>
+            <p>
+                Mais do que vender brinquedos, buscamos oferecer experiências positivas,
+                onde cada detalhe é pensado para levar carinho, cuidado e diversão, criando sorrisos verdadeiros.
+            </p>
+        </div>
+        @* Imagem à direita *@
+        <div class="col-md-6 text-center">
+            <img src="~/img/criancas.png" class="img-fluid" alt="Crianças brincando" style="max-height: 350px;">
+        </div>
+    </div>
+</div>
+
+@* --- PARTE 2: O QUE FAZEMOS (COM IMAGEM AMARELO.PNG) --- *@
+<section class="secao-amarela-imagem">
+    <div class="container text-center">
+        @* Título Azul com o mesmo estilo do título verde lá de cima *@
+        <h2 class="titulo-azul-custom display-5 mb-4">O QUE FAZEMOS</h2>
+
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                @* Texto Branco Centralizado *@
+                <p class="text-white fs-5 lh-base fw-medium">
+                    Selecionamos brinquedos para diferentes idades e fases da infância, priorizando qualidade,
+                    segurança e estímulo à imaginação e ao aprendizado. Organizamos nossos produtos por categorias,
+                    marcas, personagens e faixa etária para facilitar a escolha e tornar a experiência no site simples
+                    e intuitiva, ajudando cada cliente a encontrar o brinquedo ideal.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+@* --- PARTE 3: NOSSA HISTÓRIA (COM IMAGEM HISTORIA.PNG) --- *@
+<section class="secao-historia-full">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="titulo-historia display-5">NOSSA HISTÓRIA</h2>
+        </div>
+
+        <div class="row align-items-center">
+            @* Texto posicionado à esquerda conforme solicitado *@
+            <div class="col-md-6">
+                <div class="texto-historia-caixa">
+                    <p class="mb-3">
+                        A ideia da Fábrica de Sorrisos surgiu da observação de como o brincar é essencial no
+                        desenvolvimento infantil. Em um mundo cada vez mais digital e acelerado, sentimos a
+                        necessidade de criar um espaço onde o brincar fosse valorizado como parte do crescimento,
+                        da aprendizagem e da felicidade.
+                    </p>
+                    <p>
+                        Inspirada em lembranças da infância, jogos simples e brinquedos que atravessam gerações,
+                        a Fábrica de Sorrisos foi pensada como um ambiente acolhedor, colorido e cheio de imaginação.
+                        Um lugar onde cada brinquedo tem um propósito e cada detalhe conta uma história.
+                    </p>
+                </div>
+            </div>
+
+            @* Coluna vazia à direita para deixar a imagem de fundo (o ursinho) aparecer *@
+            <div class="col-md-6"></div>
+        </div>
+    </div>
+</section>
+
+@* --- PARTE 4: COMPROMISSO (AZUL.PNG COM CARDS) --- *@
+<section class="secao-compromisso-full">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="titulo-compromisso display-6">COMPROMISSO COM SEGURANÇA E QUALIDADE</h2>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            @* Card Rosa *@
+            <div class="col-md">
+                <div class="card-compromisso card-rosa text-center">
+                    <h5>Segurança Infantil</h5>
+                    <p>Brinquedos adequados para cada idade, com indicação clara e materiais seguros.</p>
+                </div>
+            </div>
+            @* Card Amarelo *@
+            <div class="col-md">
+                <div class="card-compromisso card-amarelo text-center">
+                    <h5>Qualidade Garantida</h5>
+                    <p>Selecionamos produtos de marcas confiáveis, resistentes e duráveis.</p>
+                </div>
+            </div>
+            @* Card Verde *@
+            <div class="col-md">
+                <div class="card-compromisso card-verde text-center">
+                    <h5>Desenvolvimento Saudável</h5>
+                    <p>Brinquedos que estimulam criatividade, aprendizado e coordenação motora.</p>
+                </div>
+            </div>
+            @* Card Azul Claro *@
+            <div class="col-md">
+                <div class="card-compromisso card-azul text-center">
+                    <h5>Segurança para Pets</h5>
+                    <p>Brinquedos pensados para diversão segura de diferentes tipos de pets.</p>
+                </div>
+            </div>
+            @* Card Roxo *@
+            <div class="col-md">
+                <div class="card-compromisso card-roxo text-center">
+                    <h5>Transparência</h5>
+                    <p>Descrições claras, idade recomendada e detalhes importantes sempre visíveis.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@* --- CORREÇÕES DA PÁGINA (SCROLL E RODAPÉ) --- *@
+<style>
+    /* Bloqueia a tela de rolar para os lados e esconde o que vazar da tela */
+    body {
+        overflow-x: hidden !important;
+        width: 100%;
+    }
+
+    /* --- MÁGICA PARA TIRAR A LINHA BRANCA --- */
+    /* Remove o padding padrão do _Layout que cria o espaço branco no fundo, APENAS nesta página */
+    .content-main, main[role="main"] {
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
+    }
+
+    /* Adiciona uma margem negativa super sutil na seção azul para "engolir" qualquer fresta de pixel */
+    .secao-compromisso-full {
+        margin-bottom: -2px !important; 
+    }
+</style>

@@ -1,0 +1,66 @@
+﻿@model IEnumerable<FabricaDeSorrisos.Domain.Entities.Personagem>
+@{
+    ViewData["Title"] = "Personagens";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/areas/admin/personagens.css" />
+
+<div class="personagens-container container-fluid p-0">
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="page-title">Gerenciar Personagens</h2>
+            <p class="page-subtitle mb-0">Os heróis da diversão 🤠🚀</p>
+        </div>
+        <a asp-action="Create" class="btn-gradient-primary">
+            <i class="bi bi-plus-circle-fill me-2"></i>Novo Personagem
+        </a>
+    </div>
+
+    <div class="card-custom">
+        <div class="card-header-custom">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-emoji-smile-fill fs-4 me-3"></i>
+                <h5 class="card-title-dark">Personagens Cadastrados</h5>
+            </div>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-custom mb-0">
+                    <thead>
+                        <tr>
+                            <th class="ps-4">Imagem</th>
+                            <th>Nome</th>
+                            <th class="text-end pe-4">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="avatar-wrapper">
+                                        <img src="@(item.ImagemUrl ?? "https://placehold.co/100x100?text=IMG")" class="avatar-img">
+                                    </div>
+                                </td>
+                                <td>
+                                    <span class="fw-bold fs-6">@item.Nome</span>
+                                </td>
+                                <td class="text-end pe-4">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn-icon-circle text-primary me-1" title="Editar">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn-icon-circle text-danger" title="Excluir">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

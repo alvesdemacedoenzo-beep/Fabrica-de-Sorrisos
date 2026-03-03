@@ -1,0 +1,89 @@
+﻿@{
+    Layout = "_AdminLayout";
+    ViewData["Title"] = "Suporte ao Cliente";
+}
+<link rel="stylesheet" href="~/css/areas/admin/suporte.css" />
+
+<div class="container-fluid py-3 suporte-container">
+    
+    <div class="mb-3">
+        <h3 class="page-title"><i class="bi bi-headset me-2"></i>Central de Suporte</h3>
+    </div>
+
+    <div class="card card-chat">
+        
+        <div class="layout-chat">
+
+            <div class="area-sidebar">
+                
+                <div class="nav-pills-custom">
+                    <ul class="nav nav-pills nav-fill" id="chatTabs">
+                        <li class="nav-item">
+                            <button class="nav-link active" onclick="mudarAba('pendente')" id="tab-pendente">
+                                <i class="bi bi-hourglass-split me-1"></i> Pendentes
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" onclick="mudarAba('encerrado')" id="tab-encerrado">
+                                <i class="bi bi-check-circle me-1"></i> Encerrados
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="listaUsuarios" class="list-group list-group-flush">
+                    <div class="d-flex flex-column align-items-center justify-content-center h-50 text-muted">
+                        <div class="spinner-border text-primary mb-2" role="status"></div>
+                        <small>Buscando clientes...</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="area-mensagens">
+
+                <div id="chatHeader" class="chat-header-custom d-none">
+                    <div class="d-flex align-items-center gap-3">
+                        <div class="user-avatar-large">
+                            <i class="bi bi-person-fill"></i>
+                        </div>
+                        <div>
+                            <h6 class="mb-0 fw-bold text-dark" id="nomeUsuarioChat">Nome do Cliente</h6>
+                            <div class="d-flex align-items-center mt-1">
+                                <span class="badge bg-success rounded-circle p-1 me-2" style="width: 8px; height: 8px;"></span>
+                                <small class="text-muted fw-bold text-uppercase" id="statusAtendimento" style="font-size: 0.7rem;">Online</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="encerrarAtendimento()" class="btn btn-sm btn-outline-danger rounded-pill fw-bold px-3">
+                        <i class="bi bi-x-circle-fill me-1"></i> Encerrar
+                    </button>
+                </div>
+
+                <div id="adminChatBody" style="display:none;">
+                    <div class="h-100 d-flex flex-column align-items-center justify-content-center text-muted opacity-50">
+                        <div class="bg-white p-4 rounded-circle shadow-sm mb-3">
+                            <i class="bi bi-chat-heart-fill fs-1 text-primary"></i>
+                        </div>
+                        <h5 class="fw-bold">Pronto para atender!</h5>
+                        <p>Selecione um cliente ao lado para iniciar.</p>
+                    </div>
+                </div>
+
+                <div id="adminChatInput" class="chat-input-wrapper d-none">
+                    <form onsubmit="enviarResposta(event)" class="d-flex gap-3 align-items-center">
+                        <input type="text" id="adminMsgInput" class="form-control input-chat-custom" placeholder="Digite sua resposta..." autocomplete="off">
+                        <button type="submit" class="btn btn-send-custom" title="Enviar">
+                            <i class="bi bi-send-fill"></i>
+                        </button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/admin-chat.js?v=VERSAO_FINAL_ADMIN_3.0"></script>
+}

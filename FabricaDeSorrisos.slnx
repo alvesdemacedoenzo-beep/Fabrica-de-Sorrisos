@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/Documentação/">
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="FabricaDeSorrisos.Api/FabricaDeSorrisos.Api.csproj" />
+  <Project Path="FabricaDeSorrisos.Application/FabricaDeSorrisos.Application.csproj" />
+  <Project Path="FabricaDeSorrisos.Domain/FabricaDeSorrisos.Domain.csproj" />
+  <Project Path="FabricaDeSorrisos.Infrastructure/FabricaDeSorrisos.Infrastructure.csproj" />
+  <Project Path="FabricaDeSorrisos.UI/FabricaDeSorrisos.UI.csproj" />
+  <Project Path="FabricaDeSorrisos.Web/FabricaDeSorrisos.Web.csproj" />
+</Solution>

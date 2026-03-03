@@ -1,0 +1,25 @@
+﻿@model FabricaDeSorrisos.Web.Areas.Admin.Models.BrinquedoFormViewModel
+@{
+    ViewData["Title"] = "Editar Brinquedo";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link rel="stylesheet" href="~/css/areas/admin/brinquedos.css" />
+
+<div class="brinquedos-container container-fluid p-0" style="max-width: 1100px;">
+    <div class="d-flex align-items-center mb-4">
+        <a asp-action="Index" class="btn-back me-3" title="Voltar">
+            <i class="bi bi-arrow-left fs-5"></i>
+        </a>
+        <div>
+            <h2 class="page-title">Editar Brinquedo <span style="color:var(--cor-rosa)">#@Model.Id</span></h2>
+            <p class="page-subtitle mb-0">Atualizando informações do produto.</p>
+        </div>
+    </div>
+
+    <form asp-action="Edit" enctype="multipart/form-data">
+        <input type="hidden" asp-for="Id" />
+        <input type="hidden" asp-for="ImagemUrlAtual" />
+
+        <partial name="_Form" model="Model" />
+    </form>
+</div>

@@ -1,0 +1,81 @@
+﻿@model IEnumerable<FabricaDeSorrisos.Domain.Entities.Usuario>
+@{
+    ViewData["Title"] = "Gestão de Usuários";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link rel="stylesheet" href="~/css/areas/admin/usuarios.css" />
+
+<div class="usuarios-container container-fluid p-0">
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="page-title">Gestão de Usuários</h2>
+            <p class="page-subtitle mb-0">Controle de acesso e equipe 👥</p>
+        </div>
+        <a asp-action="Create" class="btn-gradient-purple">
+            <i class="bi bi-person-plus-fill me-2"></i>Novo Usuário
+        </a>
+    </div>
+
+    <div class="card-custom">
+        <div class="card-header-custom">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-people-fill fs-4 me-3"></i>
+                <h5 class="card-title-white">Usuários Cadastrados</h5>
+            </div>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-custom mb-0">
+                    <thead>
+                        <tr>
+                            <th class="ps-4">Usuário</th>
+                            <th>Email</th>
+                            <th>Perfil (Tipo)</th>
+                            <th class="text-end pe-4">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar-initials me-3">
+                                            @item.NomeCompleto.Substring(0, 1).ToUpper()
+                                        </div>
+                                        <div class="fw-bold">@item.NomeCompleto</div>
+                                    </div>
+                                </td>
+                                <td>@item.Email</td>
+                                <td>
+                                    @if (item.TipoUsuario?.Nome == "Administrador")
+                                    {
+                                        <span class="badge bg-danger rounded-pill px-3">Admin</span>
+                                    }
+                                    else if (item.TipoUsuario?.Nome == "Gerente")
+                                    {
+                                        <span class="badge bg-warning text-dark rounded-pill px-3">Gerente</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-info text-dark rounded-pill px-3">Cliente</span>
+                                    }
+                                </td>
+                                <td class="text-end pe-4">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn-icon-circle text-primary me-1" title="Editar">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn-icon-circle text-danger" title="Excluir">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

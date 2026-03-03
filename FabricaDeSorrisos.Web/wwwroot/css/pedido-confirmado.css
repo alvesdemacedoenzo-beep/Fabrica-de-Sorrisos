@@ -1,0 +1,109 @@
+﻿/* =========================================
+   ESTILOS DA TELA DE SUCESSO (VERSÃO COMPACTA)
+   ========================================= */
+
+.bg-success-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 15px; /* Espaçamento interno para não colar nas bordas */
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    60% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.success-icon-container {
+    width: 80px; /* Reduzido de 110px */
+    height: 80px; /* Reduzido de 110px */
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 20px rgba(40, 167, 69, 0.3);
+    animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    border: 4px solid #ffffff;
+    margin-top: -50px; /* Ajustado para o novo tamanho */
+}
+
+    .success-icon-container i {
+        font-size: 2.5rem !important; /* Ícone menor */
+    }
+
+.card-confirmacao {
+    border: none;
+    border-radius: 25px;
+    box-shadow: 0 15px 40px rgba(0, 2, 105, 0.08);
+    margin-top: 50px;
+    position: relative;
+    background: #ffffff;
+    overflow: hidden;
+    width: 100%;
+    max-width: 500px; /* Limite rigoroso de largura para não ficar enorme */
+}
+
+.confetti-bg {
+    background-image: radial-gradient(#F66CD8 15%, transparent 16%), radial-gradient(#F3DD24 15%, transparent 16%), radial-gradient(#00BAF6 15%, transparent 16%);
+    background-size: 50px 50px;
+    opacity: 0.02;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.resumo-box {
+    background-color: #f8fbff;
+    border-radius: 15px;
+    padding: 20px;
+    border: 2px dashed #dbeafe;
+}
+
+/* Ajuste de fontes para não ficarem gigantes */
+.card-confirmacao h1 {
+    font-size: 1.8rem !important;
+    font-weight: 800;
+}
+
+.card-confirmacao p {
+    font-size: 1rem !important;
+}
+
+.total-pago-valor {
+    color: #00C709;
+    font-size: 1.8rem !important; /* Valor total mais equilibrado */
+    font-weight: 900;
+}
+
+.btn-gradient-blue-success {
+    background: linear-gradient(135deg, #00BAF6 0%, #000269 100%);
+    border: none;
+    color: white;
+    font-weight: 700;
+    padding: 12px 25px;
+    border-radius: 50px;
+    transition: all 0.3s;
+    text-decoration: none;
+    font-size: 0.95rem;
+}
+
+    .btn-gradient-blue-success:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 2, 105, 0.2);
+        color: white;
+    }

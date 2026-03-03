@@ -1,0 +1,181 @@
+﻿/* Variáveis baseadas na sua paleta */
+:root {
+    --cor-rosa: #F66CD8;
+    --cor-amarelo: #F3DD24;
+    --cor-verde: #00C709;
+    --cor-azul-escuro: #000269;
+    --cor-azul-claro: #00BAF6;
+    --cor-branco: #FFFFFF;
+    --bg-fundo: #f8f9fa;
+    --sombra-card: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.dashboard-container {
+    padding: 20px;
+    background-color: var(--bg-fundo);
+    min-height: 100vh;
+}
+
+/* --- Título e Boas vindas --- */
+.dashboard-header {
+    margin-bottom: 30px;
+    border-left: 5px solid var(--cor-rosa);
+    padding-left: 15px;
+}
+
+    .dashboard-header h2 {
+        color: var(--cor-azul-escuro);
+        font-weight: 800;
+        margin-bottom: 5px;
+    }
+
+    .dashboard-header p {
+        color: #6c757d;
+        font-size: 0.95rem;
+    }
+
+/* --- Cards do Topo --- */
+.card-resumo {
+    background: var(--cor-branco);
+    border: none;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: var(--sombra-card);
+    transition: transform 0.3s ease;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+    .card-resumo:hover {
+        transform: translateY(-5px);
+    }
+
+    /* Barra lateral colorida de cada card */
+    .card-resumo::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 6px;
+    }
+
+.card-rosa::before {
+    background-color: var(--cor-rosa);
+}
+
+.card-amarelo::before {
+    background-color: var(--cor-amarelo);
+}
+
+.card-azul::before {
+    background-color: var(--cor-azul-claro);
+}
+
+.card-verde::before {
+    background-color: var(--cor-verde);
+}
+
+.card-titulo {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #888;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 5px;
+}
+
+.card-valor {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--cor-azul-escuro);
+}
+
+/* --- Área dos Gráficos --- */
+.card-grafico {
+    background: var(--cor-branco);
+    border-radius: 12px;
+    box-shadow: var(--sombra-card);
+    padding: 25px;
+    border: none;
+    height: 100%; /* Para alinhar altura */
+}
+
+.grafico-titulo {
+    color: var(--cor-rosa);
+    font-weight: 700;
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+/* ... código anterior dos gráficos ... */
+
+/* --- LISTAS INFERIORES (Populares e Recentes) --- */
+.card-lista {
+    background: var(--cor-branco);
+    border-radius: 12px;
+    box-shadow: var(--sombra-card);
+    padding: 25px;
+    height: 100%;
+    border: none;
+}
+
+.titulo-lista {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.lista-customizada {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.item-lista {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 0.95rem;
+    color: #444;
+    transition: background 0.2s;
+}
+
+    .item-lista:last-child {
+        border-bottom: none;
+    }
+
+    .item-lista:hover {
+        background-color: #fcfcfc;
+        padding-left: 5px; /* Efeitozinho de movimento */
+    }
+
+.nome-produto {
+    font-weight: 600;
+}
+
+/* Bolinha com a quantidade (estilo notificação) */
+.badge-qtd {
+    background-color: #dc3545; /* Vermelho igual a referência */
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 20px;
+    min-width: 30px;
+    text-align: center;
+}
+
+.data-venda {
+    color: #999;
+    font-size: 0.85rem;
+}

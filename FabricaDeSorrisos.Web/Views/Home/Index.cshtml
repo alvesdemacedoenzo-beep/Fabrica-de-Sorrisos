@@ -1,0 +1,256 @@
+﻿@model FabricaDeSorrisos.Web.Models.CatalogViewModel
+@{
+    ViewData["Title"] = "Início";
+}
+
+@* --- BLOCO DO CARROSSEL (LARGURA TOTAL 100%) --- *@
+<div id="carouselHome" class="carousel slide shadow-sm mb-5" data-bs-ride="carousel" data-bs-interval="4000">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="0" class="active"></button>
+        <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="1"></button>
+        <button type="button" data-bs-target="#carouselHome" data-bs-slide-to="2"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="~/img/caroussel1.jpg" class="d-block w-100" alt="Destaque 1">
+        </div>
+        <div class="carousel-item">
+            <img src="~/img/caroussel2.jpg" class="d-block w-100" alt="Destaque 2">
+        </div>
+        <div class="carousel-item">
+            <img src="~/img/caroussel3.png" class="d-block w-100" alt="Destaque 3">
+        </div>
+    </div>
+    @* Botões de navegação lateral (Anterior/Próximo) *@
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselHome" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselHome" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    </button>
+</div>
+
+
+<div class="container">
+    @* --- SEÇÃO DE CATEGORIAS --- *@
+    <div class="my-5 py-4">
+        @* Novo título de Categorias em Azul Escuro *@
+<h3 class="fw-bold mb-5 text-center" style="color: #000269;">Categorias</h3>
+
+<div class="row justify-content-center text-center g-4 gx-md-5">
+            <div class="col-6 col-md-2">
+                <a asp-action="Busca" asp-route-categoriaId="1" class="text-decoration-none">
+                    <div class="cat-card shadow-sm hover-scale p-0 border-0">
+                        <img src="~/img/brinquedos.png" class="img-fluid rounded-4" alt="Brinquedos">
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-6 col-md-2">
+                <a asp-action="Busca" asp-route-categoriaId="2" class="text-decoration-none">
+                    <div class="cat-card shadow-sm hover-scale p-0 border-0">
+                        <img src="~/img/educativos.png" class="img-fluid rounded-4" alt="Educativos">
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-6 col-md-2">
+                <a asp-action="Busca" asp-route-categoriaId="4" class="text-decoration-none">
+                    <div class="cat-card shadow-sm hover-scale p-0 border-0">
+                        <img src="~/img/pets.png" class="img-fluid rounded-4" alt="Pets">
+                    </div>
+                </a>
+            </div>
+
+            <div class="col-6 col-md-2">
+                <a asp-action="Busca" asp-route-categoriaId="3" class="text-decoration-none">
+                    <div class="cat-card shadow-sm hover-scale p-0 border-0">
+                        <img src="~/img/jogos.png" class="img-fluid rounded-4" alt="Jogos">
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    @* --- SEÇÃO BANNER DO JOGO --- *@
+    @* <div class="my-5 py-4 shadow-sm" style="max-width: 1362px; margin: 0 auto;">
+        <a href="#" class="text-decoration-none d-block">
+            <img src="~/img/bannerJogo.jpg"
+                 class="img-fluid rounded-5 w-100"
+                 style="aspect-ratio: 1362 / 758; object-fit: cover; transition: none;"
+                 alt="Banner do Jogo Ursinho Fabrício">
+        </a>
+    </div> *@
+
+    @* --- SEÇÃO DE MARCAS FAVORITAS --- *@
+    <div class="my-5 py-4 text-center">
+        @* Título alterado para Azul Escuro *@
+        <h3 class="fw-bold mb-5" style="color: #000269;">Nossas Marcas Favoritas</h3>
+
+        <div class="d-flex justify-content-center flex-wrap gap-4">
+            <a asp-action="Busca" asp-route-marcaId="1" class="text-decoration-none hover-scale">
+                <div class="bg-white rounded-circle shadow-sm d-flex align-items-center justify-content-center overflow-hidden" style="width: 172px; height: 172px;">
+                    <img src="~/img/lego.png" class="img-fluid" alt="Lego" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </a>
+
+            <a asp-action="Busca" asp-route-marcaId="5" class="text-decoration-none hover-scale">
+                <div class="bg-white rounded-circle shadow-sm d-flex align-items-center justify-content-center overflow-hidden" style="width: 172px; height: 172px;">
+                    <img src="~/img/estrela.png" class="img-fluid" alt="Estrela" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </a>
+
+            <a asp-action="Busca" asp-route-marcaId="2" class="text-decoration-none hover-scale">
+                <div class="bg-white rounded-circle shadow-sm d-flex align-items-center justify-content-center overflow-hidden" style="width: 172px; height: 172px;">
+                    <img src="~/img/mattel.png" class="img-fluid" alt="Mattel" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </a>
+
+            <a asp-action="Busca" asp-route-marcaId="3" class="text-decoration-none hover-scale">
+                <div class="bg-white rounded-circle shadow-sm d-flex align-items-center justify-content-center overflow-hidden" style="width: 172px; height: 172px;">
+                    <img src="~/img/hasbro.png" class="img-fluid" alt="Hasbro" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </a>
+
+            <a asp-action="Busca" asp-route-marcaId="6" class="text-decoration-none hover-scale">
+                <div class="bg-white rounded-circle shadow-sm d-flex align-items-center justify-content-center overflow-hidden" style="width: 172px; height: 172px;">
+                    <img src="~/img/candide.png" class="img-fluid" alt="Candide" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </a>
+
+            <a asp-action="Busca" asp-route-marcaId="4" class="text-decoration-none hover-scale">
+                <div class="bg-white rounded-circle shadow-sm d-flex align-items-center justify-content-center overflow-hidden" style="width: 172px; height: 172px;">
+                    <img src="~/img/fisherPrice.png" class="img-fluid" alt="Fisher Price" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+            </a>
+        </div>
+    </div>
+
+
+    @* --- BLOCO DE PRODUTOS --- *@
+    <div class="my-5 py-4">
+        @* Novo título de Destaques em Azul Escuro *@
+        <h3 class="fw-bold mb-5 text-center" style="color: #000269;">Destaques da semana</h3>
+
+        <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
+            @if (Model.Produtos != null && Model.Produtos.Items.Any())
+            {
+                @foreach (var item in Model.Produtos.Items.Take(6))
+                {
+                    <div class="col d-flex justify-content-center">
+                        <div class="card product-card-wireframe shadow-custom-blue border-0 position-relative rounded-5 overflow-hidden p-3"
+                             style="width: 276px; height: 450.07px; background-color: #fff;">
+
+                            <div class="position-relative text-center mb-2">
+                                <a asp-controller="Home" asp-action="Detalhes" asp-route-id="@item.Id">
+                                    <img src="@(item.ImagemUrl ?? "https://placehold.co/200?text=Sem+Foto")"
+                                         class="img-fluid" style="height: 180px; object-fit: contain;">
+                                </a>
+
+                                <button class="btn btn-light rounded-circle position-absolute top-0 end-0 m-0 shadow-sm btn-favorito"
+                                        onclick="toggleFavorito(this, @item.Id)"
+                                        data-id="@item.Id"
+                                        data-auth="@User.Identity.IsAuthenticated.ToString().ToLower()">
+                                    <i class="bi bi-heart fs-5 text-secondary"></i>
+                                </button>
+                            </div>
+
+                            <div class="card-body p-0 d-flex flex-column text-start">
+                                <div class="text-warning mb-1" style="font-size: 0.8rem;">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                </div>
+
+                                <h5 class="fw-bold text-dark mb-1 fs-6 text-truncate">@item.Nome</h5>
+
+                                <div class="mb-2 d-flex flex-wrap gap-2 align-items-center">
+                                    <small class="text-muted d-block">@item.Marca</small>
+                                    <span class="badge-categoria-amarela">@item.Categoria</span>
+                                </div>
+
+                                <div class="mt-auto">
+                                    <h4 class="fw-bold text-dark mb-0">R$ @item.Preco.ToString("N2")</h4>
+                                    <p class="text-muted" style="font-size: 0.75rem; margin-bottom: 10px;">
+                                        ou 10x R$ @((item.Preco / 10).ToString("N2")) s/juros
+                                    </p>
+
+                                    @if (item.Estoque > 0)
+                                    {
+                                        <button class="btn btn-success-custom w-100 rounded-4 py-2"
+                                                onclick="adicionarAoCarrinho(this, @item.Id)">
+                                            <i class="bi bi-cart-fill me-1"></i> adicionar
+                                        </button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Estilos das Categorias */
+    .cat-card {
+        border-radius: 20px;
+        padding: 20px 10px;
+        transition: transform 0.2s;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .bg-pink {
+        background-color: #ff69b4;
+    }
+
+    .bg-cyan {
+        background-color: #00bfff;
+    }
+
+    .bg-yellow {
+        background-color: #ffd700;
+    }
+
+    .bg-green {
+        background-color: #32cd32;
+    }
+
+    .bg-navy {
+        background-color: #000080;
+    }
+
+    /* Banner do Jogo */
+    .game-banner {
+        background: linear-gradient(135deg, #fce38a 0%, #f38181 100%);
+    }
+
+    .text-shadow {
+        text-shadow: 1px 1px 3px rgba(0,0,0,0.2);
+    }
+
+    /* Efeitos */
+    .hover-scale {
+        transition: transform 0.2s;
+    }
+
+        .hover-scale:hover {
+            transform: scale(1.05);
+        }
+
+    .hover-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+    }
+
+    .transition-scale {
+        transition: transform 0.3s ease;
+    }
+
+    .hover-card:hover .transition-scale {
+        transform: scale(1.1);
+    }
+</style>

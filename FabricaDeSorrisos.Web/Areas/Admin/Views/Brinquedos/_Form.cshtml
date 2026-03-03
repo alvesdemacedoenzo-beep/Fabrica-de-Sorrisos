@@ -1,0 +1,102 @@
+﻿@model FabricaDeSorrisos.Web.Areas.Admin.Models.BrinquedoFormViewModel
+
+<div class="card-custom p-4 mb-4">
+    <h6 class="label-custom text-uppercase text-muted border-bottom pb-2 mb-4">
+        <i class="bi bi-info-circle-fill me-2"></i>Informações Básicas
+    </h6>
+    
+    <div class="mb-3">
+        <label class="label-custom">Nome do Brinquedo</label>
+        <input asp-for="Nome" class="input-custom form-control" placeholder="Ex: Boneca Bailarina Musical" />
+        <span asp-validation-for="Nome" class="text-danger small fw-bold"></span>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            <label class="label-custom">Preço (R$)</label>
+            <div class="input-group">
+                <span class="input-group-text input-group-text-custom">R$</span>
+                <input asp-for="Preco" type="number" step="0.01" class="input-custom form-control" placeholder="0,00" />
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="label-custom">Estoque</label>
+            <input asp-for="Estoque" type="number" class="input-custom form-control" placeholder="Qtd" />
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <label class="label-custom">Descrição</label>
+        <textarea asp-for="Descricao" class="input-custom form-control" rows="4" placeholder="Descreva os detalhes..."></textarea>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-5 mb-4">
+        <div class="card-custom p-4 h-100">
+            <h6 class="label-custom text-uppercase text-muted border-bottom pb-2 mb-4">
+                <i class="bi bi-image-fill me-2"></i>Mídia e Status
+            </h6>
+
+            <div class="text-center p-3 mb-3 bg-light rounded-3 border border-dashed">
+                @if (!string.IsNullOrEmpty(Model.ImagemUrlAtual))
+                {
+                    <img src="@Model.ImagemUrlAtual" class="img-fluid rounded-3 mb-2" style="max-height: 150px;" />
+                    <p class="small text-muted mb-0">Imagem Atual</p>
+                }
+                else
+                {
+                    <i class="bi bi-camera-fill display-4 text-muted opacity-25"></i>
+                    <p class="small text-muted mb-0">Sem imagem</p>
+                }
+            </div>
+            <input asp-for="ImagemUpload" type="file" class="input-custom form-control form-control-sm mb-4" />
+
+            <div class="switch-custom form-check form-switch d-flex align-items-center">
+                <input asp-for="Ativo" class="form-check-input ms-0 me-3" type="checkbox" role="switch" style="cursor: pointer;">
+                    <label asp-for="Ativo" class="form-check-label fw-bold cursor-pointer m-0">Visível na Loja</label>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7 mb-4">
+            <div class="card-custom p-4 h-100">
+                <h6 class="label-custom text-uppercase text-muted border-bottom pb-2 mb-4">
+                    <i class="bi bi-tags-fill me-2"></i>Classificação
+                </h6>
+
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="label-custom">Marca</label>
+                        <select asp-for="MarcaId" class="select-custom form-select" asp-items="@(new SelectList(Model.Marcas, "Id", "Nome"))">
+                            <option value="">Selecione...</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label-custom">Categoria</label>
+                        <select asp-for="CategoriaId" class="select-custom form-select" asp-items="@(new SelectList(Model.Categorias, "Id", "Nome"))">
+                            <option value="">Selecione...</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label-custom">Subcategoria</label>
+                        <select asp-for="SubCategoriaId" class="select-custom form-select" asp-items="@(new SelectList(Model.SubCategorias, "Id", "Nome"))">
+                            <option value="">Nenhuma</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="label-custom">Personagem</label>
+                        <select asp-for="PersonagemId" class="select-custom form-select" asp-items="@(new SelectList(Model.Personagens, "Id", "Nome"))">
+                            <option value="">Nenhum</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end">
+        <button type="submit" class="btn-gradient-blue">
+            <i class="bi bi-check-lg me-2"></i> Salvar Produto
+        </button>
+    </div>

@@ -1,0 +1,120 @@
+﻿@model IEnumerable<FabricaDeSorrisos.Domain.Entities.Favorito>
+@{
+    ViewData["Title"] = "Lista de Desejos";
+}
+
+<div class="container py-5">
+    @* Botão Voltar no canto superior esquerdo *@
+    <div class="mb-4">
+        <a href="javascript:history.back()" class="btn btn-voltar-favoritos rounded-pill px-4 fw-bold">
+            <i class="bi bi-arrow-left"></i> Voltar
+        </a>
+    </div>
+
+    @* Título em cor Vinho *@
+    <h2 class="fw-bold mb-4 text-center" style="color: #800000;">
+        <i class="bi bi-heart-fill"></i> LISTA DE DESEJOS
+    </h2>
+
+    @* Área centralizada (quadrado com bordas redondas) *@
+    <div class="area-favoritos-container p-4 p-md-5 mb-5 shadow-sm border">
+        @if (!Model.Any())
+        {
+            <div class="text-center py-5">
+                <img src="~/img/favoritos.png" alt="Lista Vazia" class="img-fluid mb-4" style="max-height: 250px;">
+                <h3 class="mt-3 text-muted">Sua lista está vazia.</h3>
+                <p>Que tal explorar nossa loja e escolher seus favoritos?</p>
+                <a asp-controller="Home" asp-action="Index" class="btn btn-primary btn-lg mt-2 rounded-pill px-4">Ir para a Loja</a>
+            </div>
+        }
+        else
+        {
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center" id="lista-favoritos">
+                @foreach (var item in Model)
+                {
+                    <div class="col d-flex justify-content-center" id="card-favorito-@item.BrinquedoId">
+                        @* Card padronizado 276x450.07 com efeito de crescimento (zoom-hover) *@
+                        <div class="card product-card-wireframe shadow-custom-blue border-0 position-relative rounded-5 overflow-hidden p-3 zoom-hover"
+                             style="width: 276px; height: 450.07px;">
+
+                            @* Botão de remover (Lixeira) *@
+                            <button class="btn btn-light rounded-circle position-absolute top-0 end-0 m-2 shadow-sm z-3"
+                                    onclick="toggleFavorito(this, @item.BrinquedoId)"
+                                    data-auth="@User.Identity.IsAuthenticated.ToString().ToLower()"
+                                    title="Remover da lista">
+                                <i class="bi bi-trash text-danger fs-5"></i>
+                            </button>
+
+                            <div class="position-relative text-center mb-2">
+                                <a asp-controller="Home" asp-action="Detalhes" asp-route-id="@item.BrinquedoId" class="d-block text-decoration-none">
+                                    <img src="@(item.Brinquedo?.ImagemUrl ?? "https://placehold.co/200?text=Foto")"
+                                         class="img-fluid" alt="@item.Brinquedo?.Nome"
+                                         style="height: 180px; object-fit: contain;">
+                                </a>
+                            </div>
+
+                            <div class="card-body p-0 d-flex flex-column text-start">
+                                @* Estrelas fixas *@
+                                <div class="text-warning mb-1" style="font-size: 0.8rem;">
+                                    <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                </div>
+
+                                <h5 class="fw-bold text-dark mb-1 fs-6 text-truncate">@item.Brinquedo?.Nome</h5>
+
+                                <div class="mb-2 d-flex flex-wrap gap-2 align-items-center">
+                                    <small class="text-muted d-block">@item.Brinquedo?.Marca</small>
+                                    <span class="badge-categoria-amarela">@item.Brinquedo?.Categoria?.Nome</span>
+                                </div>
+
+                                <div class="mt-auto">
+                                    <h4 class="fw-bold text-dark mb-0">R$ @item.Brinquedo?.Preco.ToString("N2")</h4>
+                                    <p class="text-muted" style="font-size: 0.75rem; margin-bottom: 10px;">
+                                        ou 10x R$ @((item.Brinquedo?.Preco / 10)?.ToString("N2")) s/juros
+                                    </p>
+
+                                    <button class="btn btn-success-custom w-100 rounded-4 py-2"
+                                            onclick="adicionarAoCarrinho(this, @item.BrinquedoId)">
+                                        <i class="bi bi-cart-fill me-1"></i> adicionar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    /* Área quadrada com bordas redondas no meio (Agora com Borda e Sombra Vinho) */
+    .area-favoritos-container {
+        background-color: #ffffff; /* Corrigi um pequeno erro de digitação "czolor" que estava no seu código */
+        border-radius: 30px;
+        min-height: 500px;
+        /* Adicionando a Borda e a Sombra Vinho */
+        border: 2px solid #800020 !important;
+        box-shadow: 0 8px 30px rgba(128, 0, 32, 0.2) !important;
+    }
+
+    /* Sombra ROSA suave no card normal (Sobrescreve a sombra azul) */
+    .product-card-wireframe {
+        box-shadow: 0 4px 15px rgba(255, 105, 180, 0.35) !important;
+    }
+
+    /* Efeito de aumento de tamanho no card ao passar a seta */
+    .zoom-hover {
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+    }
+
+        .zoom-hover:hover {
+            transform: scale(1.08);
+            z-index: 10;
+            /* Sombra ROSA mais forte ao passar o mouse (Sobrescreve a sombra cinza) */
+            box-shadow: 0 15px 30px rgba(255, 20, 147, 0.45) !important;
+        }
+
+    .z-3 {
+        z-index: 3;
+    }
+</style>

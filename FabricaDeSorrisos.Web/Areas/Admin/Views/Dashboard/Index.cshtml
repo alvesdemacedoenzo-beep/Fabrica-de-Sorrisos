@@ -1,0 +1,117 @@
+﻿@model FabricaDeSorrisos.Web.Areas.Admin.Models.DashboardViewModel
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/areas/admin/dashboard.css" />
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h2 class="fw-bold text-dark mb-0">Dashboard Geral</h2>
+        <p class="text-muted">Visão geral da Fábrica em tempo real</p>
+    </div>
+    <div class="badge bg-primary fs-6 px-3 py-2 rounded-pill">
+        Olá, @(User.IsInRole("Admin") ? "Admin" : "Gerente")
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-3">
+        <div class="p-4 rounded-4 text-white h-100 shadow-sm" style="background: linear-gradient(135deg, #000269, #00208a);">
+            <h6 class="text-uppercase opacity-75 small fw-bold">Receita Total</h6>
+            <h2 class="fw-bold mb-0">@Model.FaturamentoTotal.ToString("C0")</h2>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="p-4 rounded-4 text-white h-100 shadow-sm" style="background: linear-gradient(135deg, #00BAF6, #00D4FF);">
+            <h6 class="text-uppercase opacity-75 small fw-bold">Pedidos</h6>
+            <h2 class="fw-bold mb-0">@Model.QtdPedidos</h2>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="p-4 rounded-4 bg-light h-100 border shadow-sm">
+            <h6 class="text-uppercase text-muted small fw-bold">Brinquedos</h6>
+            <h2 class="fw-bold text-dark mb-0">@Model.QtdBrinquedos</h2>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="p-4 rounded-4 bg-light h-100 border shadow-sm">
+            <h6 class="text-uppercase text-muted small fw-bold">Clientes</h6>
+            <h2 class="fw-bold text-dark mb-0">@Model.QtdUsuarios</h2>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+            <h5 class="fw-bold mb-3 text-primary">Vendas por Categoria</h5>
+            <div id="chartColunas"
+                 data-labels="@string.Join(",", Model.GraficoColunasLabels)"
+                 data-values="@string.Join(",", Model.GraficoColunasValores)">
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+            <h5 class="fw-bold mb-3 text-primary">Top 5 Mais Vendidos</h5>
+            <div id="chartBrinquedos"
+                 data-labels="@string.Join(",", Model.GraficoBrinquedosLabels)"
+                 data-values="@string.Join(",", Model.GraficoBrinquedosValores)">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4">
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+            <h5 class="fw-bold mb-3 text-secondary">Mais Populares (Lista)</h5>
+            <ul class="list-group list-group-flush">
+                @if (Model.MaisPopulares != null && Model.MaisPopulares.Any())
+                {
+                    @foreach (var item in Model.MaisPopulares)
+                    {
+                        <li class="list-group-item border-0 px-0 d-flex justify-content-between align-items-center mb-2">
+                            <span class="fw-bold text-dark">@item.Nome</span>
+                            <span class="badge rounded-pill" style="background-color: #dc3545;">@item.Quantidade</span>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="list-group-item border-0 text-muted">Ainda não há dados suficientes.</li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="card border-0 shadow-sm rounded-4 p-4 h-100">
+            <h5 class="fw-bold mb-3 text-secondary">Mais Recentes</h5>
+            <ul class="list-group list-group-flush">
+                @if (Model.MaisRecentes != null && Model.MaisRecentes.Any())
+                {
+                    @foreach (var item in Model.MaisRecentes)
+                    {
+                        <li class="list-group-item border-0 px-0 d-flex justify-content-between align-items-center mb-2">
+                            <span class="fw-bold text-dark">@item.Nome</span>
+                            <span class="text-muted small">@item.Data</span>
+                        </li>
+                    }
+                }
+                else
+                {
+                    <li class="list-group-item border-0 text-muted">Nenhum pedido recente.</li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="~/js/areas/admin/dashboard.js"></script>
+}

@@ -1,0 +1,281 @@
+﻿@using System.Security.Claims
+@using FabricaDeSorrisos.Application.Abstractions.Repositories
+@inject IUsuarioRepository UsuarioRepo
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+    @if (ViewData["Title"] != null && !string.IsNullOrEmpty(ViewData["Title"].ToString()) && ViewData["Title"].ToString() != "Fábrica de Sorrisos")
+    {
+        @ViewData["Title"] @:- Fábrica de Sorrisos
+    }
+    else
+    {
+        @:Fábrica de Sorrisos
+    }
+    </title>
+   
+    <link rel="icon" type="image/png" href="~/img/logo.png" />
+    <link rel="shortcut icon" type="image/png" href="~/img/logo.png" />
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/shared/shared.css" asp-append-version="true" />
+</head>
+<body class="d-flex flex-column min-vh-100" style="overflow-x: hidden;">
+    
+    @* Lógica para buscar o NOME VERDADEIRO do banco de dados *@
+    @{
+        string primeiroNome = "";
+        if (User.Identity != null && User.Identity.IsAuthenticated)
+        {
+            var claimId = User.FindFirst("UsuarioSistemaId")?.Value;
+            if (!string.IsNullOrEmpty(claimId))
+            {
+                int uId = int.Parse(claimId);
+                var usuario = await UsuarioRepo.GetByIdAsync(uId);
+                
+                if (usuario != null && !string.IsNullOrWhiteSpace(usuario.NomeCompleto))
+                {
+                    primeiroNome = usuario.NomeCompleto.Split(' ')[0];
+                }
+                else
+                {
+                    primeiroNome = User.Identity.Name?.Split('@')[0] ?? "Usuário";
+                }
+            }
+            else
+            {
+                primeiroNome = User.Identity.Name?.Split('@')[0] ?? "Usuário";
+            }
+        }
+    }
+
+    <header class="fixed-top shadow-sm">
+        
+        @* --- NAV BAR MOBILE --- *@
+        <nav class="navbar d-lg-none bg-fabrica-mobile py-2">
+            <div class="container d-flex align-items-center justify-content-between flex-wrap">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#menuMobileDropdown">
+                    <i class="bi bi-list fs-1" style="color: #00C709 !important;"></i>
+                </button>
+
+                <a class="navbar-brand mx-auto" asp-controller="Home" asp-action="Index">
+                    <img src="~/img/logo.png" alt="Logo" class="nav-logo-mobile" style="max-height: 60px !important;" />
+                </a>
+
+                <div class="d-flex align-items-center gap-3">
+                    <a asp-controller="Favoritos" asp-action="Index" class="text-warning text-decoration-none" style="color: #F3DD24 !important;">
+                        <i class="bi bi-heart-fill fs-3"></i>
+                    </a>
+                    <a asp-controller="Carrinho" asp-action="Index" class="text-white position-relative text-decoration-none">
+                        <i class="bi bi-basket2-fill fs-3"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                            <span class="badge-carrinho">0</span>
+                        </span>
+                    </a>
+                </div>
+
+                <div class="w-100 mt-2 px-2">
+                    <form asp-controller="Home" asp-action="Busca" method="get" class="position-relative">
+                        <input type="text" name="termoBusca" class="form-control search-rounded-mobile py-2 ps-4" placeholder="Encontre aqui um mundo de diversão...">
+                        <button type="submit" class="btn-lupa-custom"><i class="bi bi-search"></i></button>
+                    </form>
+                </div>
+
+                <div class="collapse w-100 mt-3" id="menuMobileDropdown">
+                    <div class="p-3">
+                        <div class="login-box-mobile d-flex flex-column">
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <p class="mb-2 text-white">Olá, <strong class="text-capitalize">@primeiroNome</strong></p>
+                                
+                                <a asp-controller="Pedidos" asp-action="Index" class="text-warning text-decoration-none fw-bold mb-2 small">
+                                    <i class="bi bi-box-seam me-1"></i> Meus Pedidos
+                                </a>
+
+                                <form asp-controller="Account" asp-action="Logout" method="post">
+                                    <button type="submit" class="btn-sair-mobile w-100">Sair</button>
+                                </form>
+                            }
+                            else
+                            {
+                                <a asp-controller="Account" asp-action="Login" class="text-white text-decoration-none d-block small">Olá, acesse sua conta</a>
+                                <a asp-controller="Account" asp-action="Register" class="text-white fw-bold text-decoration-none small">ou faça seu cadastro</a>
+                            }
+                        </div>
+
+                        <div class="d-flex flex-column gap-3 mt-3">
+    <a class="mobile-cat-link" asp-controller="Home" asp-action="Busca" asp-route-categoriaId="1">Brinquedos</a>
+    @* Adicionando Pelúcias e Fantasias após Brinquedos *@
+    <a class="mobile-cat-link" asp-controller="Home" asp-action="Busca" asp-route-categoriaId="6">Pelúcias</a>
+    <a class="mobile-cat-link" asp-controller="Home" asp-action="Busca" asp-route-categoriaId="5">Fantasias</a>
+    
+    <a class="mobile-cat-link" asp-controller="Home" asp-action="Busca" asp-route-categoriaId="2">Educativos</a>
+    <a class="mobile-cat-link" asp-controller="Home" asp-action="Busca" asp-route-categoriaId="4">Pets</a>
+    <a class="mobile-cat-link" asp-controller="Home" asp-action="Busca" asp-route-categoriaId="3">Jogos</a>
+    
+    @* Adicionando Esportes após Jogos *@
+    <a class="mobile-cat-link" asp-controller="Home" asp-action="Busca" asp-route-categoriaId="7">Esportes</a>
+    
+    <a class="mobile-cat-link" asp-controller="Home" asp-action="Privacy">Sobre Nós</a>
+</div>
+
+                        <div class="text-center mt-4">
+                            <button class="btn border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#menuMobileDropdown">
+                                <i class="bi bi-chevron-up fs-2"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        @* --- NAV BAR DESKTOP --- *@
+        <div class="d-none d-lg-block">
+            <div class="bg-fabrica py-3">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-3">
+                            <a asp-controller="Home" asp-action="Index">
+                                <img src="~/img/logo.png" alt="Logo" class="nav-logo" />
+                            </a>
+                        </div>
+                        <div class="col-md-5 position-relative">
+                            <form class="d-flex position-relative" asp-controller="Home" asp-action="Busca" method="get">
+                                <input class="form-control search-rounded py-2 shadow-sm" type="search" name="termoBusca" placeholder="Encontre aqui um mundo de diversão ...">
+                                <button class="btn btn-lupa-custom" type="submit"><i class="bi bi-search fs-5"></i></button>
+                            </form>
+                        </div>
+                        <div class="col-md-4 d-flex justify-content-end align-items-center">
+                            
+                            <div class="text-end lh-sm user-area-header d-flex flex-column align-items-end pe-3 border-end border-white border-opacity-25 me-3">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <small class="text-white mb-1">Olá, <strong class="text-capitalize">@primeiroNome</strong></small>
+                                    
+                                    <a asp-controller="Pedidos" asp-action="Index" class="text-warning text-decoration-none fw-bold mb-1 hover-scale" style="font-size: 0.8rem;">
+                                        <i class="bi bi-box-seam me-1"></i> Meus Pedidos
+                                    </a>
+
+                                    <form asp-controller="Account" asp-action="Logout" method="post" class="m-0 p-0">
+                                        <button type="submit" class="btn btn-sm fw-bold text-white px-3 rounded-pill btn-sair-desktop hover-scale" style="background-color: #000269; font-size: 0.7rem; border: none; padding-top: 2px; padding-bottom: 2px;">Sair</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <a asp-controller="Account" asp-action="Login" class="text-white text-decoration-none d-block small">Olá, acesse sua conta</a>
+                                    <a asp-controller="Account" asp-action="Register" class="text-white fw-bold text-decoration-none small">ou faça seu cadastro</a>
+                                }
+                            </div>
+
+                            <a asp-controller="Favoritos" asp-action="Index" class="fav-icon text-decoration-none nav-icon-spacing hover-scale"><i class="bi bi-heart-fill fs-3"></i></a>
+                            <a asp-controller="Carrinho" asp-action="Index" class="text-white position-relative text-decoration-none nav-icon-spacing hover-scale">
+                                <i class="bi bi-basket2-fill fs-3"></i>
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger border border-white">
+                                    <span class="badge-carrinho">0</span>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-fabrica border-top border-white border-opacity-25 shadow-sm">
+                <div class="container">
+                    <nav class="nav justify-content-between py-2 align-items-center">
+                      <a class="nav-link-custom @(Context.Request.Query["categoriaId"] == "1" ? "active" : "")" asp-controller="Home" asp-action="Busca" asp-route-categoriaId="1">Brinquedos</a>
+    
+    @* Novas Categorias após Brinquedos *@
+    <a class="nav-link-custom @(Context.Request.Query["categoriaId"] == "6" ? "active" : "")" asp-controller="Home" asp-action="Busca" asp-route-categoriaId="6">Pelúcias</a>
+    <a class="nav-link-custom @(Context.Request.Query["categoriaId"] == "5" ? "active" : "")" asp-controller="Home" asp-action="Busca" asp-route-categoriaId="5">Fantasias</a>
+
+    <a class="nav-link-custom @(Context.Request.Query["categoriaId"] == "2" ? "active" : "")" asp-controller="Home" asp-action="Busca" asp-route-categoriaId="2">Educativos</a>
+    <a class="nav-link-custom @(Context.Request.Query["categoriaId"] == "4" ? "active" : "")" asp-controller="Home" asp-action="Busca" asp-route-categoriaId="4">Pets</a>
+    <a class="nav-link-custom @(Context.Request.Query["categoriaId"] == "3" ? "active" : "")" asp-controller="Home" asp-action="Busca" asp-route-categoriaId="3">Jogos</a>
+    
+    @* Esportes após Jogos *@
+    <a class="nav-link-custom @(Context.Request.Query["categoriaId"] == "7" ? "active" : "")" asp-controller="Home" asp-action="Busca" asp-route-categoriaId="7">Esportes</a>
+
+    <a class="nav-link-custom @(ViewContext.RouteData.Values["Action"]?.ToString() == "Privacy" ? "active" : "")" asp-controller="Home" asp-action="Privacy">Sobre Nós</a>
+
+                        @* --- CORREÇÃO AQUI: CHECA POR TODAS AS VARIAÇÕES POSSÍVEIS --- *@
+                        @if (User.Identity.IsAuthenticated && (User.IsInRole("Administrador") || User.IsInRole("ADMINISTRADOR") || User.IsInRole("Admin") || User.IsInRole("Gerente")))
+                        {
+                            <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="btn btn-warning rounded-pill fw-bold px-3 text-dark ms-2 hover-scale" style="background-color: #f3dd24; font-size: 0.8rem; border: none;">ÁREA ADMIN</a>
+                        }
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container content-main flex-grow-1 pt-4">
+        <main role="main" class="pb-4">@RenderBody()</main>
+    </div>
+
+    <footer class="footer-fabrica mt-auto">
+        <div class="container text-center">
+            <div class="row justify-content-center mb-3">
+                <div class="col-12"><a asp-action="Index"><img src="~/img/logo.png" alt="Logo" class="footer-logo" /></a></div>
+            </div>
+
+            <div class="row justify-content-center mb-4">
+                <div class="col-12 text-white slogan-footer">
+                    <h3 class="fw-bold m-0" style="font-size: 1.2rem;">Espalhando alegria através de brinquedos</h3>
+                </div>
+            </div>
+
+            <div class="row justify-content-center mb-3">
+                <div class="col-12">
+                    <nav class="nav justify-content-center gap-3 text-white flex-wrap">
+                        <a class="footer-nav-link text-decoration-none fw-bold small" asp-controller="Home" asp-action="Busca" asp-route-categoriaId="1">Brinquedos</a>
+                        <a class="footer-nav-link text-decoration-none fw-bold small" asp-controller="Home" asp-action="Busca" asp-route-categoriaId="2">Educativos</a>
+                        <a class="footer-nav-link text-decoration-none fw-bold small" asp-controller="Home" asp-action="Busca" asp-route-categoriaId="4">Pets</a>
+                        <a class="footer-nav-link text-decoration-none fw-bold small" asp-controller="Home" asp-action="Busca" asp-route-categoriaId="3">Jogos</a>
+                        <a class="footer-nav-link text-decoration-none fw-bold small @(ViewContext.RouteData.Values["Action"]?.ToString() == "Privacy" ? "active" : "")" asp-controller="Home" asp-action="Privacy">Sobre nós</a>
+                    </nav>
+                </div>
+            </div>
+
+            <div class="row justify-content-center mb-4">
+                <nav class="nav justify-content-center gap-4 text-white footer-social-icons">
+                    <i class="bi bi-instagram fs-2 hover-scale"></i>
+                    <i class="bi bi-facebook fs-2 hover-scale"></i>
+                    <i class="bi bi-tiktok fs-2 hover-scale"></i>
+                    <i class="bi bi-envelope-fill fs-2 hover-scale"></i>
+                    <i class="bi bi-youtube fs-2 hover-scale"></i>
+                    <i class="bi bi-whatsapp fs-2 hover-scale"></i>
+                </nav>
+            </div>
+            <div class="row text-center mb-3">
+                <p class="text-white fw-bold mb-2 small">Formas de pagamento</p>
+                <div class="d-flex justify-content-center gap-2">
+                    <img src="~/img/credito.png" alt="Cartão" class="img-pagamento" />
+                    <img src="~/img/debito.png" alt="Débito" class="img-pagamento" />
+                    <img src="~/img/pix.png" alt="Pix" class="img-pagamento" />
+                    <img src="~/img/boleto.png" alt="Boleto" class="img-pagamento" />
+                </div>
+            </div>
+            <div class="row text-center border-top border-white border-opacity-25 pt-3">
+                <p class="text-white m-0" style="font-size: 0.75rem;">©Fabrica de sorrisos [2026]. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <partial name="_ChatWidget" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    
+    <script src="~/js/favoritos.js" asp-append-version="true"></script>
+    <script src="~/js/carrinho.js" asp-append-version="true"></script>
+    <script src="~/js/chat.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

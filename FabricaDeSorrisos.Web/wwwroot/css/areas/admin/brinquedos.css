@@ -1,0 +1,251 @@
+﻿/* =========================================
+   ESTILOS DO CRUD DE BRINQUEDOS
+   ========================================= */
+
+/* Importando a fonte Nunito (caso não esteja no layout) */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+:root {
+    --cor-rosa: #F66CD8;
+    --cor-azul: #00BAF6;
+    --cor-azul-escuro: #000269;
+    --cor-amarelo: #F3DD24;
+    --cor-verde: #00C709;
+    --bg-input: #f8f9fa;
+    --border-input: #e9ecef;
+}
+
+/* Aplica a fonte em tudo dentro deste módulo */
+.brinquedos-container {
+    font-family: 'Nunito', sans-serif;
+    color: var(--cor-azul-escuro);
+}
+
+/* --- CABEÇALHOS E TÍTULOS --- */
+.page-title {
+    font-weight: 800;
+    color: var(--cor-azul-escuro);
+    margin-bottom: 0;
+}
+
+.page-subtitle {
+    font-weight: 700;
+    color: #6c757d;
+}
+
+/* --- CARTÕES (CARDS) --- */
+.card-custom {
+    border: none;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0, 2, 105, 0.08); /* Sombra azulada suave */
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.card-header-custom {
+    background: linear-gradient(135deg, var(--cor-azul) 0%, var(--cor-azul-escuro) 100%);
+    color: white;
+    padding: 20px 25px;
+    border: none;
+}
+
+.card-title-white {
+    font-weight: 700;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+/* --- TABELA DE LISTAGEM --- */
+.table-custom thead th {
+    background-color: #f1f5f9;
+    color: var(--cor-azul-escuro);
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    border: none;
+    padding: 15px;
+}
+
+.table-custom tbody tr {
+    transition: background-color 0.2s;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+    .table-custom tbody tr:hover {
+        background-color: #f8fbff; /* Azul bem clarinho no hover */
+    }
+
+.table-custom td {
+    vertical-align: middle;
+    padding: 15px;
+    font-weight: 600;
+    color: #444;
+}
+
+.img-wrapper {
+    width: 50px;
+    height: 50px;
+    padding: 3px;
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.img-product {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 6px;
+}
+
+.text-price {
+    color: var(--cor-azul-escuro);
+    font-weight: 800;
+    background-color: rgba(243, 221, 36, 0.2); /* Fundo amarelo suave */
+    padding: 5px 10px;
+    border-radius: 8px;
+}
+
+/* --- BADGES DE STATUS --- */
+.badge-status {
+    padding: 8px 12px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 0.75rem;
+}
+
+.status-ativo {
+    background-color: rgba(0, 199, 9, 0.1);
+    color: var(--cor-verde);
+}
+
+.status-inativo {
+    background-color: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+}
+
+/* --- FORMULÁRIOS E INPUTS --- */
+.label-custom {
+    font-weight: 700;
+    color: var(--cor-azul-escuro);
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.input-custom, .select-custom {
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-input);
+    border-radius: 12px;
+    padding: 12px 15px;
+    font-weight: 600;
+    color: #495057;
+    transition: all 0.3s;
+}
+
+    .input-custom:focus, .select-custom:focus {
+        background-color: #fff;
+        border-color: var(--cor-rosa);
+        box-shadow: 0 0 0 4px rgba(246, 108, 216, 0.15); /* Glow Rosa */
+    }
+
+.input-group-text-custom {
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-input);
+    border-right: none;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    color: var(--cor-azul);
+    font-weight: bold;
+}
+
+/* Correção para input group */
+.input-group .input-custom {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: none;
+}
+
+/* --- BOTÕES --- */
+.btn-gradient-primary {
+    background: linear-gradient(90deg, var(--cor-rosa), var(--cor-amarelo));
+    border: none;
+    color: white;
+    font-weight: 800;
+    border-radius: 50px;
+    padding: 10px 25px;
+    box-shadow: 0 4px 15px rgba(246, 108, 216, 0.3);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+    .btn-gradient-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(246, 108, 216, 0.4);
+        color: white;
+    }
+
+.btn-gradient-blue {
+    background: linear-gradient(90deg, var(--cor-azul), var(--cor-azul-escuro));
+    border: none;
+    color: white;
+    font-weight: 800;
+    border-radius: 50px;
+    padding: 12px 30px;
+    box-shadow: 0 4px 15px rgba(0, 186, 246, 0.3);
+}
+
+    .btn-gradient-blue:hover {
+        transform: translateY(-2px);
+        color: white;
+    }
+
+.btn-icon-circle {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    border: 1px solid #eee;
+    background: white;
+}
+
+    .btn-icon-circle:hover {
+        background-color: var(--cor-azul);
+        color: white !important;
+        border-color: var(--cor-azul);
+    }
+
+.btn-back {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--cor-azul);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+}
+
+    .btn-back:hover {
+        transform: scale(1.1);
+        color: var(--cor-rosa);
+    }
+
+/* --- SWITCH --- */
+.switch-custom {
+    padding: 15px;
+    background-color: var(--bg-input);
+    border-radius: 12px;
+    border: 1px solid var(--border-input);
+}
+
+.form-check-input:checked {
+    background-color: var(--cor-verde);
+    border-color: var(--cor-verde);
+}

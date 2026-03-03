@@ -1,0 +1,35 @@
+﻿@model FabricaDeSorrisos.Domain.Entities.Usuario
+@{
+    ViewData["Title"] = "Excluir Usuário";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link rel="stylesheet" href="~/css/areas/admin/usuarios.css" />
+
+<div class="usuarios-container container d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+    
+    <div class="card-custom text-center p-5" style="max-width: 500px; width: 100%;">
+        <div class="mb-4">
+            <div class="bg-danger bg-opacity-10 text-danger rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                <i class="bi bi-person-x-fill fs-1"></i>
+            </div>
+        </div>
+
+        <h3 class="page-title mb-2">Excluir Usuário?</h3>
+        <p class="text-muted mb-4">
+            Você está prestes a remover <strong>@Model.NomeCompleto</strong> do sistema.
+            <br><small class="text-danger">Esta ação remove o acesso de login imediatamente.</small>
+        </p>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-danger rounded-pill fw-bold py-2 shadow-sm border-0">
+                    Sim, Banir Usuário
+                </button>
+                <a asp-action="Index" class="btn btn-light rounded-pill fw-bold py-2 text-muted">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

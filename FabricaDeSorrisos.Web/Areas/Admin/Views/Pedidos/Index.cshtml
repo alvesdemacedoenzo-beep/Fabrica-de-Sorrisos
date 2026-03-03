@@ -1,0 +1,72 @@
+﻿@model FabricaDeSorrisos.Web.Areas.Admin.Models.PedidosIndexViewModel
+@{
+    ViewData["Title"] = "Gestão de Pedidos";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link rel="stylesheet" href="~/css/areas/admin/pedidos.css" />
+
+<div class="pedidos-container container-fluid p-0">
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="page-title">Gestão de Pedidos</h2>
+            <p class="page-subtitle mb-0">Acompanhe as vendas e pagamentos 📦</p>
+        </div>
+    </div>
+
+    <ul class="nav nav-tabs-custom nav-pills" id="pedidoTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link nav-link-custom active" id="pendentes-tab" data-bs-toggle="pill" data-bs-target="#pendentes" type="button">
+                <i class="bi bi-hourglass-split me-2"></i>Aguardando
+                <span class="badge bg-light text-dark rounded-pill ms-2 border">@Model.Pendentes.Count</span>
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link nav-link-custom" id="finalizados-tab" data-bs-toggle="pill" data-bs-target="#finalizados" type="button">
+                <i class="bi bi-check-circle-fill me-2"></i>Finalizados
+                <span class="badge bg-light text-dark rounded-pill ms-2 border">@Model.Finalizados.Count</span>
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content" id="pedidoTabsContent">
+        
+        <div class="tab-pane fade show active" id="pendentes" role="tabpanel">
+            <div class="card-custom">
+                @if (Model.Pendentes.Any())
+                {
+                    <div class="card-body p-0">
+                        @await Html.PartialAsync("_TabelaPedidos", Model.Pendentes)
+                    </div>
+                }
+                else
+                {
+                    <div class="p-5 text-center text-muted">
+                        <i class="bi bi-inbox fs-1 d-block mb-3 opacity-25"></i>
+                        <h5>Tudo limpo!</h5>
+                        <p>Não há pedidos aguardando pagamento.</p>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="finalizados" role="tabpanel">
+            <div class="card-custom">
+                @if (Model.Finalizados.Any())
+                {
+                    <div class="card-body p-0">
+                        @await Html.PartialAsync("_TabelaPedidos", Model.Finalizados)
+                    </div>
+                }
+                else
+                {
+                    <div class="p-5 text-center text-muted">
+                        <i class="bi bi-bag-x fs-1 d-block mb-3 opacity-25"></i>
+                        <h5>Nenhum histórico</h5>
+                        <p>Nenhum pedido finalizado ainda.</p>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

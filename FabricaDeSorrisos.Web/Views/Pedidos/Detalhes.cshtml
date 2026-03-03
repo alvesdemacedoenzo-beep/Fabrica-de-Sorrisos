@@ -1,0 +1,112 @@
+﻿@model Pedido
+@{
+    ViewData["Title"] = "Detalhes do Pedido";
+}
+<link rel="stylesheet" href="~/css/meus-pedidos.css" />
+
+<div class="container py-5 pedidos-wrapper" style="max-width: 950px; min-height: 70vh;">
+    
+    <div class="d-flex align-items-center mb-5">
+        <a asp-action="Index" class="btn-back-custom rounded-circle me-4" title="Voltar para lista">
+            <i class="bi bi-arrow-left fs-4"></i>
+        </a>
+        <div>
+            <div class="d-flex align-items-center gap-3 mb-1">
+                <h2 class="page-title-blue mb-0">Pedido #@Model.Id.ToString("D6")</h2>
+                @if (Model.Status == "Aguardando Pagamento")
+                {
+                    <span class="badge-status-custom badge-aguardando"><i class="bi bi-hourglass-split me-1"></i> Aguardando</span>
+                }
+                else
+                {
+                    <span class="badge-status-custom badge-confirmado"><i class="bi bi-check-circle-fill me-1"></i> Confirmado</span>
+                }
+            </div>
+            <p class="text-muted mb-0 fw-semibold"><i class="bi bi-calendar-event me-2"></i>Realizado em @Model.DataPedido.ToString("dd/MM/yyyy 'às' HH:mm")</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-xl overflow-hidden mb-4">
+                <div class="card-header bg-white py-3 px-4 border-bottom">
+                    <h5 class="section-header mb-0"><i class="bi bi-bag-check-fill me-2 text-primary"></i>Itens Comprados</h5>
+                </div>
+                <div class="card-body p-0">
+                    <ul class="list-group list-group-flush">
+                        @foreach (var item in Model.Itens)
+                        {
+                            <li class="list-group-item item-pedido p-4 d-flex align-items-center">
+                                <div class="img-container-item me-3">
+                                    <img src="@(item.Brinquedo?.ImagemUrl ?? "https://placehold.co/80")" class="rounded-3" style="width: 70px; height: 70px; object-fit: cover;" />
+                                </div>
+                                <div class="flex-grow-1">
+                                    <h6 class="fw-bold mb-1" style="color: var(--cor-azul-escuro);">@item.Brinquedo?.Nome</h6>
+                                    <span class="badge bg-light text-dark border rounded-pill px-2">@item.Quantidade un.</span>
+                                </div>
+                                <div class="text-end">
+                                    <span class="fw-bolder d-block fs-5" style="color: var(--cor-azul-escuro);">R$ @((item.Quantidade * item.PrecoUnitario).ToString("N2"))</span>
+                                    <small class="text-muted fw-bold" style="font-size: 0.75rem;">Unit: R$ @item.PrecoUnitario.ToString("N2")</small>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+                
+                <div class="card-footer resumo-financeiro p-4">
+                    <div class="d-flex justify-content-between mb-2 text-muted">
+                        <span class="fw-bold">Subtotal:</span>
+                        <span class="fw-bold">R$ @((Model.ValorTotal - Model.ValorFrete).ToString("N2"))</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3 text-muted">
+                        <span class="fw-bold">Frete:</span>
+                        <span class="fw-bold">R$ @Model.ValorFrete.ToString("N2")</span>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center pt-3 border-top border-white">
+                        <span class="fs-5 fw-bolder text-dark">Total Pago:</span>
+                        <span class="total-final">R$ @Model.ValorTotal.ToString("N2")</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="d-flex flex-column gap-4 h-100">
+                <div class="card card-info-detalhes rounded-xl border-top-blue">
+                    <h6 class="section-header"><i class="bi bi-geo-alt-fill me-2 text-primary"></i>Entrega</h6>
+                    <p class="mb-2 text-dark fw-bold">@Model.EnderecoEntrega</p>
+                    <span class="badge bg-light text-primary border fw-bold"><i class="bi bi-mailbox me-1"></i> CEP: @Model.CEP</span>
+                </div>
+                
+                <div class="card card-info-detalhes rounded-xl border-top-green">
+                    <h6 class="section-header"><i class="bi bi-credit-card-2-front-fill me-2 text-success"></i>Pagamento</h6>
+                    <div class="d-flex align-items-center mb-3">
+                        @if (Model.FormaPagamento == "Pix")
+                        {
+                            <i class="bi bi-qr-code-scan fs-3 me-2 text-success"></i>
+                        }
+                        else if (Model.FormaPagamento == "Cartao")
+                        {
+
+                            <i class="bi bi-credit-card fs-3 me-2 text-primary"></i>
+                        }
+                        else
+                        {
+
+                            <i class="bi bi-upc-scan fs-3 me-2 text-warning"></i>
+                        }
+                        
+                        <span class="fw-bolder fs-5 text-dark">@Model.FormaPagamento</span>
+                    </div>
+                    
+                    @if (Model.Status == "Aguardando Pagamento" && Model.FormaPagamento == "Pix")
+                    {
+                        <div class="p-3 bg-warning bg-opacity-25 rounded-3 text-center border border-warning fw-bold" style="color: #856404;">
+                            <i class="bi bi-info-circle-fill me-1"></i> Aguardando confirmação do banco.
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

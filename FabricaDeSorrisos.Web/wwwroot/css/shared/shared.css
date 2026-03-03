@@ -1,0 +1,552 @@
+﻿/* --- CONFIGURAÇÃO ESTRUTURAL --- */
+.btn-chat-float {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1050;
+    /* ... demais estilos do seu botão ... */
+}
+
+html, body {
+    height: 100%;
+    margin: 0 !important;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.content-main {
+    flex: 1 0 auto; /* O conteúdo cresce para "empurrar" o footer para baixo */
+    padding-top: 40px;
+    background-color: white; /* Garante que o fundo do corpo seja branco */
+}
+
+/* --- CABEÇALHO --- */
+header.fixed-top {
+    z-index: 1030; /* Garante que o menu fique sempre por cima de outros elementos */
+}
+
+/* Logo do topo independente */
+header .nav-logo {
+    max-height: 85px !important; /* Limita a altura da logo no topo da página */
+    transition: 0.3s; /* Suaviza a transição de tamanho da logo */
+}
+
+.bg-fabrica {
+    background-color: #00bfff; /* Define a cor azul padrão da sua marca */
+    color: white; /* Define a cor do texto como branco sobre o fundo azul */
+}
+
+.search-rounded {
+    border: 2px solid #00C709 !important; /* Cria a borda verde ao redor da barra de pesquisa */
+    border-radius: 50px !important; /* Arredonda totalmente as laterais da barra de pesquisa */
+}
+
+.btn-lupa-custom {
+    position: absolute; /* Posiciona o botão da lupa dentro da barra de busca */
+    right: 10px; /* Distância da borda direita da barra */
+    top: 50%; /* Centraliza o ícone verticalmente */
+    transform: translateY(-50%); /* Ajuste fino para a centralização vertical exata */
+    border: none; /* Remove a borda padrão do botão */
+    background: transparent; /* Deixa o fundo do botão transparente */
+    color: #00C709 !important; /* Define a cor verde para o ícone da lupa */
+}
+
+.fav-icon {
+    color: #F3DD24 !important; /* Cor amarela do ícone de favoritos */
+}
+
+/* --- AJUSTE NAV-LINK DESKTOP (Fixar Azul Escuro quando Ativo ou Hover) --- */
+.nav-link-custom {
+    color: white !important; /* Links do menu em branco */
+    text-decoration: none; /* Remove o sublinhado padrão de links */
+    font-weight: 500; /* Espessura média da fonte */
+    font-size: 0.85rem; /* Tamanho da fonte dos links */
+    padding: 0.5rem 1rem; /* Espaçamento interno dos links */
+    transition: 0.2s; /* Suaviza o efeito ao passar o mouse */
+}
+
+    .nav-link-custom:hover,
+    .nav-link-custom.active,
+    .nav-link-custom.active-oferta {
+        color: #000269 !important; /* Cor azul escuro ao passar o mouse ou link ativo */
+        font-weight: 700; /* Deixa a fonte em negrito */
+    }
+
+/* BOTÃO ÁREA ADMIN (AMARELO E REDONDO NOS LADOS) */
+.badge-admin-header {
+    background-color: #ffc107; /* Define a cor amarela do botão */
+    color: #212529 !important; /* Texto em preto escuro para leitura */
+    text-decoration: none; /* Tira o sublinhado de link */
+    font-size: 0.75rem; /* Texto do botão um pouco menor */
+    padding: 0.4rem 1.2rem; /* Espaçamento interno para formato de pílula */
+    border-radius: 50px; /* Lados do botão totalmente arredondados */
+    font-weight: bold; /* Letras em negrito */
+    display: inline-block; /* Permite que o botão se comporte como uma caixa */
+    transition: 0.3s; /* Suaviza a mudança de cor no hover */
+}
+
+/* --- CARROSSEL RESPONSIVO (MAX 1440X690) --- */
+#carouselHome {
+    max-width: 1440px !important; /* Tamanho máximo solicitado */
+    width: 100% !important;
+    height: auto !important; /* Permite que a altura diminua em telas menores */
+    margin: 0 auto 3rem auto !important;
+    position: relative !important;
+    left: 0 !important;
+    right: 0 !important;
+    overflow: hidden;
+    border-radius: 30px; /* Bordas arredondadas padrão da loja */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-item img {
+    width: 100% !important;
+    height: auto !important; /* Garante que a imagem não estique ou achate */
+    max-height: 690px !important; /* Impede que passe da altura máxima em telas grandes */
+    object-fit: cover;
+}
+
+/* Ajuste para telas pequenas (Mobile) */
+@media (max-width: 768px) {
+    #carouselHome {
+        border-radius: 15px; /* Bordas menores em telas pequenas */
+        margin-bottom: 1.5rem !important;
+    }
+}
+
+/* --- CONTEÚDO --- */
+body {
+    padding-top: 160px; /* Espaço para o conteúdo não ficar debaixo do header fixo */
+}
+
+/* --- RODAPÉ (FOOTER) --- */
+.footer-fabrica {
+    flex-shrink: 0; /* Impede que o footer seja esmagado */
+    background-color: #F66CD8;
+    width: 100%;
+    margin-top: auto; /* Força o footer para o final da página */
+    padding: 30px 0 10px 0;
+}
+
+/* Ajusta o tamanho da logo do rodapé para ser igual à do topo */
+.footer-logo {
+    max-height: 85px !important; /* Define a altura máxima igual à da logo do nav-bar */
+    width: auto; /* Mantém a proporção correta da imagem */
+}
+
+/* --- ESTILO CATEGORIAS E HOVER FOOTER --- */
+.footer-nav-link {
+    text-decoration: none;
+    color: #ffffff !important; /* Todas brancas conforme solicitado */
+    font-size: 0.85rem;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+    .footer-nav-link:hover {
+        color: #000269 !important; /* Azul escuro no hover */
+    }
+
+.slogan-footer h3 {
+    color: white;
+}
+
+/* --- ESTILO GLOBAL DOS CARDS (Fábrica de Sorrisos) --- */
+.product-card-wireframe {
+    width: 276px !important; /* Largura solicitada */
+    height: 450.07px !important; /* Altura solicitada */
+    background-color: #ffffff !important;
+    display: flex !important;
+    flex-direction: column !important;
+    border: none !important;
+    border-radius: 30px !important; /* Arredondamento nível 5 */
+    margin: 0 auto !important;
+    transition: box-shadow 0.3s ease !important; /* Suaviza apenas a sombra */
+}
+
+.shadow-custom-blue {
+    box-shadow: 0 4px 15px rgba(0, 191, 255, 0.15) !important;
+}
+
+.product-card-wireframe:hover {
+    box-shadow: 0 4px 20px rgba(0, 191, 255, 0.35) !important;
+    transform: none !important; /* Impede o card de subir ou descer */
+}
+
+.btn-success-custom {
+    background-color: #00D100 !important;
+    border: none !important;
+    color: white !important;
+    text-transform: lowercase !important; /* Texto em minúsculo igual ao desenho */
+    font-weight: bold !important;
+    transition: background-color 0.2s !important;
+}
+
+    .btn-success-custom:hover {
+        background-color: #00B500 !important;
+        color: white !important;
+    }
+
+.badge-categoria-amarela {
+    background-color: #ffd700 !important; /* Amarelo Vibrante */
+    color: #212529 !important; /* Texto escuro para leitura CDSA */
+    font-size: 0.65rem !important;
+    padding: 4px 10px !important;
+    border-radius: 50px !important;
+    font-weight: bold !important;
+    display: inline-block !important;
+}
+
+.product-card-wireframe:hover img {
+    transform: none !important;
+}
+
+/* --- ESTILO DA PÁGINA SOBRE NÓS --- */
+.titulo-quem-somos {
+    color: #00c709 !important;
+    font-weight: bold;
+}
+
+.secao-amarela-imagem {
+    background-image: url('/img/amarelo.png') !important;
+    background-size: 100% 100% !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    width: 100vw !important;
+    position: relative !important; /* Essencial para o z-index funcionar */
+    left: 50% !important;
+    right: 50% !important;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
+    padding: 120px 0 !important;
+    z-index: 10 !important;
+}
+
+.titulo-azul-custom {
+    color: #000269 !important; /* Cor Azul solicitada */
+    font-weight: bold !important;
+}
+
+.secao-amarela-imagem p {
+    color: #ffffff !important;
+    text-align: center !important;
+}
+
+.secao-historia-full {
+    background-image: url('/img/historia.png') !important;
+    background-size: cover !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    width: 100vw !important;
+    position: relative !important;
+    left: 50% !important;
+    right: 50% !important;
+    margin-left: -50vw !important;
+    margin-right: -50vw !important;
+    margin-top: -80px !important;
+    padding: 150px 0 120px 0 !important;
+    z-index: 1 !important;
+}
+
+.titulo-historia {
+    color: #333333 !important;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.texto-historia-caixa {
+    background-color: rgba(255, 255, 255, 0.85); /* Fundo branco suave para legibilidade */
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    color: #444444 !important;
+    line-height: 1.8;
+}
+
+.secao-compromisso-full {
+    background-image: url('/img/azul.png') !important;
+    background-size: 100% 100% !important;
+    background-repeat: no-repeat !important;
+    width: 100vw !important;
+    position: relative !important;
+    left: 50% !important;
+    margin-left: -50vw !important;
+    margin-top: -80px !important;
+    padding: 120px 0 80px 0 !important;
+    z-index: 5 !important;
+}
+
+.titulo-compromisso {
+    color: #f3dd24 !important; /* Amarelo solicitado */
+    font-weight: bold !important;
+}
+
+.card-compromisso {
+    background-color: #000269 !important; /* Azul Escuro */
+    border-radius: 25px !important;
+    padding: 25px;
+    height: 100%;
+    transition: all 0.4s ease !important;
+    border: 3px solid transparent;
+}
+
+    .card-compromisso h5 {
+        font-weight: bold;
+        transition: color 0.3s;
+    }
+
+    .card-compromisso p {
+        color: #ffffff;
+        transition: color 0.3s;
+        font-size: 0.9rem;
+    }
+
+.card-rosa {
+    border-color: #ff00ff !important;
+    box-shadow: 0 0 25px rgba(255, 0, 255, 0.7);
+}
+
+    .card-rosa h5 {
+        color: #ff00ff;
+    }
+
+.card-amarelo {
+    border-color: #f3dd24 !important;
+    box-shadow: 0 0 25px rgba(243, 221, 36, 0.7);
+}
+
+    .card-amarelo h5 {
+        color: #f3dd24;
+    }
+
+.card-verde {
+    border-color: #00ff00 !important;
+    box-shadow: 0 0 25px rgba(0, 255, 0, 0.7);
+}
+
+    .card-verde h5 {
+        color: #00ff00;
+    }
+
+.card-azul {
+    border-color: #00ccff !important;
+    box-shadow: 0 0 25px rgba(0, 204, 255, 0.7);
+}
+
+    .card-azul h5 {
+        color: #00ccff;
+    }
+
+.card-roxo {
+    border-color: #9900ff !important;
+    box-shadow: 0 0 25px rgba(153, 0, 255, 0.7);
+}
+
+    .card-roxo h5 {
+        color: #9900ff;
+    }
+
+.card-compromisso:hover {
+    transform: scale(1.1);
+}
+
+.card-rosa:hover {
+    background-color: #ff00ff !important;
+}
+
+.card-amarelo:hover {
+    background-color: #f3dd24 !important;
+}
+
+.card-verde:hover {
+    background-color: #00ff00 !important;
+}
+
+.card-azul:hover {
+    background-color: #00ccff !important;
+}
+
+.card-roxo:hover {
+    background-color: #9900ff !important;
+}
+
+.card-compromisso:hover h5 {
+    color: #ffffff !important;
+}
+
+.card-compromisso:hover p {
+    color: #000000 !important;
+}
+
+/* --- AJUSTE DAS IMAGENS DE PAGAMENTO --- */
+.img-pagamento {
+    height: 50px !important;
+    width: auto !important;
+    object-fit: contain !important;
+    margin: 0 8px !important;
+    transition: transform 0.3s;
+}
+
+    .img-pagamento:hover {
+        transform: scale(1.1);
+    }
+
+/* --- ESPAÇAMENTO DO NAV BAR --- */
+.user-area-header {
+    margin-right: 25px !important;
+}
+
+.nav-icon-spacing {
+    margin-left: 20px !important;
+    display: flex;
+    align-items: center;
+}
+
+.d-flex.flex-column.align-items-end small {
+    margin-bottom: 5px !important;
+}
+
+/* --- BOTÕES DEGRADÊ --- */
+.btn-limpar-degrade {
+    background: white;
+    color: #00bfff !important;
+    border: 2px solid transparent !important;
+    background-image: linear-gradient(white, white), linear-gradient(to right, #00bfff, #00D100);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    font-weight: bold;
+    transition: all 0.4s ease;
+}
+
+    .btn-limpar-degrade:hover {
+        background: linear-gradient(to right, #00bfff, #00D100) !important;
+        color: white !important;
+        box-shadow: 0 4px 15px rgba(0, 209, 0, 0.3);
+        transform: scale(1.05);
+    }
+
+.btn-voltar-favoritos {
+    background: white;
+    color: #800000 !important;
+    border: 2px solid transparent !important;
+    background-image: linear-gradient(white, white), linear-gradient(to right, #800000, #ff1493);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    transition: all 0.4s ease;
+}
+
+    .btn-voltar-favoritos:hover {
+        background: linear-gradient(to right, #800000, #ff1493) !important;
+        color: white !important;
+        box-shadow: 0 4px 15px rgba(128, 0, 0, 0.3);
+        transform: scale(1.05);
+    }
+
+.btn-voltar-carrinho {
+    background: white;
+    color: #B8860B !important;
+    border: 2px solid transparent !important;
+    background-image: linear-gradient(white, white), linear-gradient(to right, #FFD700, #B8860B);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    transition: all 0.4s ease;
+}
+
+    .btn-voltar-carrinho:hover {
+        background: linear-gradient(to right, #FFD700, #B8860B) !important;
+        color: white !important;
+        box-shadow: 0 4px 15px rgba(218, 165, 32, 0.4);
+        transform: scale(1.05);
+    }
+
+/* --- CONFIGURAÇÃO EXCLUSIVA PARA MOBILE (Até 991px) --- */
+/* --- CONFIGURAÇÃO EXCLUSIVA PARA MOBILE (Até 991px) --- */
+@media (max-width: 991px) {
+    body {
+        padding-top: 180px !important;
+    }
+
+    .bg-fabrica-mobile {
+        background-color: #00bfff !important;
+        border-radius: 0 0 50px 50px !important;
+        padding-bottom: 25px !important;
+    }
+
+    .search-rounded-mobile {
+        border: 3px solid #00C709 !important;
+        border-radius: 50px !important;
+        background-color: #ffffff !important;
+    }
+
+    /* Quadrado de Login da Foto */
+    .login-box-mobile {
+        border: 1px solid rgba(255, 255, 255, 0.4);
+        padding: 15px;
+        margin-bottom: 20px;
+        background-color: rgba(255, 255, 255, 0.1);
+        text-align: center;
+        color: white;
+    }
+
+    .btn-sair-mobile {
+        background-color: #000269 !important;
+        color: white !important;
+        border-radius: 50px;
+        padding: 4px 20px;
+        border: none;
+        font-weight: bold;
+    }
+
+    /* Categorias Brancas Alinhadas à Esquerda conforme a foto */
+    .mobile-cat-link {
+        color: white !important;
+        text-decoration: none;
+        text-align: left;
+        display: block;
+        padding: 5px 0;
+        font-size: 1.1rem;
+        transition: 0.3s;
+    }
+
+        /* Hover Azul Escuro solicitado nas categorias mobile */
+        .mobile-cat-link:hover {
+            color: #000269 !important;
+        }
+
+    .btn-filtro-mobile {
+        position: fixed;
+        bottom: 25px;
+        left: 25px;
+        width: 65px;
+        height: 65px;
+        background-color: white;
+        border: 1px solid #e0e0e0;
+        border-radius: 50%;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        z-index: 1050;
+    }
+}
+
+    /* Ocultar botão limpar filtros no mobile conforme solicitado */
+    .btn-limpar-degrade {
+        display: none !important;
+    }
+}
+
+/* --- CHAT FIXO NA DIREITA --- */
+.chat-widget-fixed {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 2000;
+}
+
+
+
+/* Cor do coração quando selecionado */
+.bi-heart-fill.text-danger {
+    color: #ff0000 !important;
+}

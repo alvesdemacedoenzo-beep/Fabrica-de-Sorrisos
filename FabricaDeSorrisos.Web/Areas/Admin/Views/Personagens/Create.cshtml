@@ -1,0 +1,22 @@
+﻿@model FabricaDeSorrisos.Domain.Entities.Personagem
+@{
+    ViewData["Title"] = "Novo Personagem";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link rel="stylesheet" href="~/css/areas/admin/personagens.css" />
+
+<div class="personagens-container container-fluid p-0" style="max-width: 600px;">
+    <div class="d-flex align-items-center mb-4">
+        <a asp-action="Index" class="btn-back me-3" title="Voltar">
+            <i class="bi bi-arrow-left fs-5"></i>
+        </a>
+        <div>
+            <h2 class="page-title">Novo Personagem</h2>
+            <p class="page-subtitle mb-0">Adicione um novo ídolo para a galeria.</p>
+        </div>
+    </div>
+
+    <form asp-action="Create" enctype="multipart/form-data">
+        <partial name="_Form" model="Model" />
+    </form>
+</div>

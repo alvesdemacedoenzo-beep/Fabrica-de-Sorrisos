@@ -1,0 +1,77 @@
+﻿@model IEnumerable<Pedido>
+@{
+    ViewData["Title"] = "Meus Pedidos";
+}
+<link rel="stylesheet" href="~/css/meus-pedidos.css" />
+
+<div class="container py-5 pedidos-wrapper" style="min-height: 70vh;">
+    <div class="d-flex align-items-center mb-5">
+        <i class="bi bi-bag-heart-fill fs-2 me-3 text-warning"></i>
+        <h2 class="page-title-blue mb-0">Meus Pedidos</h2>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="text-center py-5 rounded-xl empty-state-container">
+            <div class="empty-icon-bg">
+                <i class="bi bi-emoji-frown display-1" style="color: #a0aaff;"></i>
+            </div>
+            <h4 class="fw-bold mb-3" style="color: var(--cor-azul-escuro)">Poxa, nenhum pedido por aqui...</h4>
+            <p class="text-muted mb-4">Que tal explorar nossa fábrica e encontrar a diversão perfeita?</p>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-gradient-yellow rounded-pill">
+                <i class="bi bi-rocket-takeoff-fill me-2"></i> Explorar a Loja
+            </a>
+        </div>
+    }
+    else
+    {
+        <div class="row g-4">
+            @foreach (var pedido in Model)
+            {
+                <div class="col-md-6 col-lg-4">
+                    <div class="card card-pedido rounded-xl shadow-sm h-100 hover-lift">
+                        <div class="card-pedido-header d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="text-muted small fw-bold d-block text-uppercase">Pedido N°</span>
+                                <span class="fw-bolder" style="color: var(--cor-azul-escuro);">#@pedido.Id.ToString("D6")</span>
+                            </div>
+                            
+                            @if (pedido.Status == "Aguardando Pagamento")
+                            {
+                                <span class="badge-status-custom badge-aguardando">
+                                    <i class="bi bi-hourglass-split me-1"></i> Aguardando
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="badge-status-custom badge-confirmado">
+                                    <i class="bi bi-check-circle-fill me-1"></i> Confirmado
+                                </span>
+                            }
+                        </div>
+                        
+                        <div class="card-body p-4">
+                            <div class="d-flex align-items-center text-muted small mb-3">
+                                <i class="bi bi-calendar-week-fill me-2 text-primary opacity-75"></i>
+                                @pedido.DataPedido.ToString("dd 'de' MMMM, yyyy")
+                            </div>
+                            <div class="mb-2">
+                                <span class="price-tag-large">R$ @pedido.ValorTotal.ToString("N2")</span>
+                            </div>
+                            <div class="d-flex align-items-center small fw-bold" style="color: var(--cor-azul-claro);">
+                                <i class="bi bi-basket2-fill me-2"></i>
+                                @pedido.Itens.Count @(pedido.Itens.Count == 1 ? "item" : "itens")
+                            </div>
+                        </div>
+                        
+                        <div class="card-footer bg-white border-0 pb-4 px-4 pt-0">
+                            <a asp-action="Detalhes" asp-route-id="@pedido.Id" class="btn btn-gradient-blue w-100 rounded-pill shadow-sm">
+                                Ver Detalhes do Pedido
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</div>

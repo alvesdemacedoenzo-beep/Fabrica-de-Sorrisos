@@ -1,0 +1,211 @@
+﻿@model FabricaDeSorrisos.Web.Models.CarrinhoViewModel
+@{
+    ViewData["Title"] = "Meu Carrinho";
+}
+
+<div class="container py-5">
+    @* Botão Voltar *@
+    <div class="mb-4">
+        <a href="javascript:history.back()" class="btn btn-voltar-carrinho rounded-pill px-4 fw-bold">
+            <i class="bi bi-arrow-left"></i> Voltar
+        </a>
+    </div>
+
+    @if (TempData["Aviso"] != null)
+    {
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> @TempData["Aviso"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    }
+
+    @* LÓGICA DO TÍTULO: Amarelo se vazio, Roxo se com produtos *@
+    @if (!Model.Itens.Any())
+    {
+        <h2 class="fw-bold mb-4" style="color: #f3dd24;">🛒 Meu Carrinho</h2>
+
+        @* Quadrado Vazio Dourado *@
+        <div class="text-center py-5" style="background-color: #ffffff; border-radius: 30px; border: 3px solid #DAA520 !important; box-shadow: 0 8px 30px rgba(218, 165, 32, 0.4) !important;">
+            <img src="~/img/cart.png" alt="Carrinho Vazio" class="img-fluid mb-4" style="max-height: 250px;">
+            <h3 class="mt-3 text-muted">Seu carrinho está vazio.</h3>
+            <a asp-controller="Home" asp-action="Index" class="btn btn-primary mt-3 btn-lg rounded-pill px-4">Ir para a Loja</a>
+        </div>
+    }
+    else
+    {
+        @* Título Roxo solicitado *@
+        <h2 class="fw-bold mb-4" style="color: #9900ff;">🛒 Meu Carrinho</h2>
+
+        <div class="row">
+            @* --- ÁREA DOS PRODUTOS --- *@
+            <div class="col-lg-8">
+                @* Div branca arredondada sem linhas divisórias internas *@
+               @* --- LISTA DE PRODUTOS RESPONSIVA (SEM TABLE) --- *@
+<div class="d-flex flex-column gap-3">
+    @foreach (var item in Model.Itens)
+    {
+        <div class="cart-item-row-responsive p-3 rounded-4 border-bottom">
+            <div class="row align-items-center g-3">
+                @* 1. Imagem e Nome *@
+                <div class="col-12 col-md-6">
+                    <div class="d-flex align-items-center">
+                        <img src="@(item.Brinquedo.ImagemUrl ?? "https://placehold.co/70")" 
+                             class="rounded-4 me-3 shadow-sm" 
+                             style="width: 70px; height: 70px; object-fit: contain; background: #fff;">
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1 fw-bold text-dark text-truncate" style="max-width: 200px;">@item.Brinquedo.Nome</h6>
+                            <small class="text-muted d-block">R$ @item.Brinquedo.Preco.ToString("N2")</small>
+                        </div>
+                    </div>
+                </div>
+
+                @* 2. Quantidade e Total (No Mobile ficam lado a lado abaixo do nome) *@
+                <div class="col-12 col-md-6">
+                    <div class="d-flex align-items-center justify-content-between justify-content-md-end gap-3">
+                        
+                        @* Controle de Quantidade *@
+                        <form asp-action="AtualizarQuantidade" method="post" class="d-inline-flex align-items-center bg-light rounded-pill p-1 shadow-sm">
+                            <input type="hidden" name="brinquedoId" value="@item.BrinquedoId" />
+                            <button type="submit" name="quantidade" value="@(item.Quantidade - 1)" class="btn btn-sm rounded-circle fw-bold btn-qtd-amarelo">
+                                <i class="bi bi-dash fs-5"></i>
+                            </button>
+                            <span class="mx-3 fw-bold text-dark fs-5">@item.Quantidade</span>
+                            <button type="submit" name="quantidade" value="@(item.Quantidade + 1)" class="btn btn-sm rounded-circle fw-bold btn-qtd-amarelo">
+                                <i class="bi bi-plus fs-5"></i>
+                            </button>
+                        </form>
+
+                        @* Preço Total e Lixeira *@
+                        <div class="d-flex align-items-center gap-3">
+                            <span class="fw-bold fs-5" style="color: #00C709;">
+                                R$ @((item.Quantidade * item.Brinquedo.Preco).ToString("N2"))
+                            </span>
+                            <a asp-action="Remover" asp-route-itemId="@item.BrinquedoId" class="text-danger fs-3 btn-lixeira">
+                                <i class="bi bi-trash-fill"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+            </div>
+
+            @* --- ÁREA DE RESUMO DO PEDIDO --- *@
+            <div class="col-lg-4 mt-4 mt-lg-0">
+                <div class="bg-white p-4 shadow-sm d-flex flex-column justify-content-center" style="border-radius: 30px;">
+
+                    @* Título Preto Maior *@
+                    <h3 class="fw-bold mb-4 text-dark">Resumo do pedido</h3>
+
+                    <div class="d-flex justify-content-between mb-4 align-items-center">
+                        @* Texto Total Preto *@
+                        <span class="fs-4 fw-bold text-dark">Total</span>
+                        @* Valor Total Roxo *@
+                        <span class="fw-bold" style="color: #9900ff; font-size: 1.8rem;">R$ @Model.Total.ToString("N2")</span>
+                    </div>
+
+                    <div class="d-grid gap-3 mt-2">
+                        @* Botão Verde (Exemplo Ri Happy) *@
+                        <a asp-action="Checkout" class="btn btn-lg fw-bold rounded-4 btn-continuar-pagamento">
+                            <i class="bi bi-lock-fill me-2 fs-4"></i> continuar para pagamento
+                        </a>
+                        @* Botão Cinza Claro com texto Azul *@
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-lg fw-bold rounded-4 btn-continuar-comprando">
+                            continuar comprando
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@* ESTILOS EXCLUSIVOS DO CARRINHO *@
+<style>
+    /* --- Efeito de Seleção no Hover dos Produtos --- */
+    .table-cart {
+        border-collapse: separate;
+        border-spacing: 0 10px; /* Cria o espaço entre as linhas */
+    }
+
+    .cart-item-row td {
+        background-color: transparent;
+        transition: background-color 0.3s ease;
+    }
+
+    /* Quadrado branco/transparente aparecendo ao passar o mouse */
+    .cart-item-row:hover td {
+        background-color: #f8f9fa; /* Cor de destaque super suave */
+    }
+
+    /* Arredondamento do Hover nas pontas da linha */
+    .cart-item-row td:first-child {
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+    }
+
+    .cart-item-row td:last-child {
+        border-top-right-radius: 20px;
+        border-bottom-right-radius: 20px;
+    }
+
+    /* --- Botões Amarelos de Quantidade --- */
+    .btn-qtd-amarelo {
+        background-color: #f3dd24; /* Amarelo Padrão */
+        color: #000;
+        width: 36px;
+        height: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        transition: transform 0.2s;
+    }
+
+        .btn-qtd-amarelo:hover {
+            transform: scale(1.1);
+            background-color: #ffd700;
+        }
+
+    /* --- Ícone de Lixeira --- */
+    .btn-lixeira {
+        transition: transform 0.2s;
+        color: #e53935 !important; /* Vermelho forte sólido */
+    }
+
+        .btn-lixeira:hover {
+            transform: scale(1.2);
+        }
+
+    /* --- Botões do Resumo --- */
+    .btn-continuar-pagamento {
+        background-color: #28a745; /* Verde solicitado */
+        color: white;
+        text-transform: lowercase;
+        padding: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.3s;
+    }
+
+        .btn-continuar-pagamento:hover {
+            background-color: #218838;
+            color: white;
+        }
+
+    .btn-continuar-comprando {
+        background-color: #f2f2f2; /* Cinza claro do fundo do botão na referência */
+        color: #000269 !important; /* Texto Azul Escuro solicitado */
+        text-transform: lowercase;
+        padding: 15px;
+        transition: background-color 0.3s;
+        border: none;
+    }
+
+        .btn-continuar-comprando:hover {
+            background-color: #e2e2e2;
+        }
+</style>

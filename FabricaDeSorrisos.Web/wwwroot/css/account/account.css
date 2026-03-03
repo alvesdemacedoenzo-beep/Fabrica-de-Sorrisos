@@ -1,0 +1,119 @@
+﻿/* ============================================================
+   ESTILOS GERAIS (LOGIN E CADASTRO)
+   ============================================================ */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+.login-wrapper {
+    background-image: url('../../img/fundoLogin.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Segoe UI', sans-serif;
+    padding: 20px 0;
+}
+
+.login-content {
+    text-align: center;
+    width: 100%;
+    max-width: 550px; /* Um pouco mais largo para acomodar o Row do cadastro */
+    padding: 20px;
+}
+
+.logo-img {
+    max-width: 250px;
+    margin-bottom: 20px;
+}
+
+.login-card {
+    background-color: rgba(255, 255, 255, 0.8); /* Transparência conforme solicitado */
+    padding: 40px;
+    border-radius: 40px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    backdrop-filter: blur(5px);
+}
+
+/* Cor do Título Principal: 000269 */
+.titulo-login {
+    color: #000269;
+    font-weight: bold;
+    font-size: 1.6rem;
+    margin-bottom: 30px;
+}
+
+/* Estilo dos Campos de Input */
+.input-group-custom {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+    /* Cor dos Textos e Labels: 00C709 */
+    .input-group-custom label, .footer-text-login a {
+        display: block;
+        color: #00C709;
+        font-weight: bold;
+        margin-bottom: 5px;
+        text-decoration: none;
+    }
+
+    /* Cor das Bordas dos Inputs: F3DD24 */
+    .input-group-custom input {
+        width: 100%;
+        padding: 10px 15px;
+        border: 2px solid #F3DD24;
+        border-radius: 12px;
+        outline: none;
+        box-sizing: border-box;
+    }
+
+/* Botão Azul Celeste */
+.btn-logar {
+    background-color: #00BFFF;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 25px;
+    font-weight: bold;
+    width: 100%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    .btn-logar:hover {
+        background-color: #0096C7;
+    }
+
+.footer-text-login {
+    margin-top: 20px;
+    color: #333;
+}
+
+    .footer-text-login a {
+        display: inline;
+    }
+
+/* ============================================================
+   AJUSTES ESPECÍFICOS PARA A ÁREA DE LOGIN
+   ============================================================ */
+/* (Você pode adicionar regras exclusivas aqui se necessário) */
+
+/* ============================================================
+   AJUSTES ESPECÍFICOS PARA A ÁREA DE CADASTRO
+   ============================================================ */
+/* Garante que o row do cadastro não quebre o layout em telas pequenas */
+@@media (max-width: 576px) {
+    .login-card {
+        padding: 20px;
+    }
+}

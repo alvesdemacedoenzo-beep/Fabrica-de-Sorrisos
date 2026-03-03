@@ -1,0 +1,5 @@
+dotnet ef database drop --force --project FabricaDeSorrisos.Infrastructure --startup-project FabricaDeSorrisos.Web
+
+
+
+dotnet ef database update --project FabricaDeSorrisos.Infrastructure --startup-project FabricaDeSorrisos.Web

@@ -1,0 +1,41 @@
+﻿@model FabricaDeSorrisos.Domain.Entities.SubCategoria
+@{
+    ViewData["Title"] = "Excluir Subcategoria";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link rel="stylesheet" href="~/css/areas/admin/subcategorias.css" />
+
+<div class="subcategorias-container container d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+    
+    <div class="card-custom text-center p-5" style="max-width: 500px; width: 100%;">
+        <div class="mb-4">
+            <div class="bg-danger bg-opacity-10 text-danger rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                <i class="bi bi-exclamation-triangle-fill fs-1"></i>
+            </div>
+        </div>
+
+        <h3 class="page-title mb-2">Tem certeza?</h3>
+        <p class="text-muted mb-4">
+            Você está prestes a excluir a subcategoria <br>
+            <strong class="fs-5 text-dark">"@Model.Nome"</strong>
+        </p>
+
+        <div class="alert alert-light border rounded-3 text-start small mb-4">
+            <i class="bi bi-info-circle me-1 text-primary"></i>
+            Pertence à categoria: <strong>@(Model.Categoria?.Nome ?? "Nenhuma")</strong>.
+            <br>Verifique se há produtos vinculados antes de continuar.
+        </div>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-danger rounded-pill fw-bold py-2 shadow-sm border-0">
+                    Sim, Excluir Subcategoria
+                </button>
+                <a asp-action="Index" class="btn btn-light rounded-pill fw-bold py-2 text-muted">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

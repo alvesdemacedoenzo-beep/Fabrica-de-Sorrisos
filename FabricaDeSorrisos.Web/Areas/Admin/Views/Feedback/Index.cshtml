@@ -1,0 +1,248 @@
+﻿@model IEnumerable<FabricaDeSorrisos.Domain.Entities.Comentario>
+@{
+    ViewData["Title"] = "Moderação de Comentários";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link rel="stylesheet" href="~/css/areas/admin/comentarios.css" />
+
+@* --- ESTILOS EXCLUSIVOS DO MODAL DE DELETAR --- *@
+<style>
+    .modal-delete-custom .modal-content {
+        border-radius: 25px;
+        border: none;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        margin-top: 50px;
+    }
+
+    .modal-delete-custom .icon-box-delete {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.5rem;
+        margin: -65px auto 20px auto;
+        box-shadow: 0 10px 20px rgba(255, 65, 108, 0.4);
+        border: 5px solid white;
+    }
+
+    .btn-danger-gradient {
+        background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
+        border: none;
+        color: white;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-danger-gradient:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 15px rgba(255, 65, 108, 0.3);
+        color: white;
+    }
+</style>
+
+<div class="comentarios-container container-fluid p-0">
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h2 class="page-title">Moderação de Comentários</h2>
+            <p class="page-subtitle mb-0">Interaja com seus clientes 💬</p>
+        </div>
+    </div>
+
+    <div class="card-custom">
+        <div class="card-header-custom">
+            <i class="bi bi-chat-quote-fill fs-4 me-3"></i>
+            <span>Lista de Comentários Recentes</span>
+        </div>
+        
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-custom mb-0">
+                    <thead>
+                        <tr>
+                            <th width="20%" class="ps-4">Usuário / Produto</th>
+                            <th width="50%">Mensagem</th>
+                            <th width="15%">Data</th>
+                            <th width="15%" class="text-end pe-4">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="ps-4">
+                                    <div class="d-flex align-items-center mb-2">
+                                        <div class="bg-light rounded-circle p-2 me-2 text-primary d-flex justify-content-center align-items-center" style="width:40px; height:40px;">
+                                            <i class="bi bi-person-fill fs-5"></i>
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold text-dark">@item.Usuario?.NomeCompleto</div>
+                                            <div class="small text-muted" style="font-size: 0.75rem;">@item.Usuario?.Email</div>
+                                        </div>
+                                    </div>
+                                    <div class="mt-2">
+                                        <span class="badge bg-light text-dark border fw-normal">
+                                            <i class="bi bi-box-seam me-1"></i>
+                                            @if (item.Brinquedo != null)
+                                            {
+                                                <a asp-area="" asp-controller="Home" asp-action="Detalhes" asp-route-id="@item.BrinquedoId" target="_blank" class="text-decoration-none text-dark">
+                                                    @item.Brinquedo.Nome <i class="bi bi-box-arrow-up-right small text-muted ms-1"></i>
+                                                </a>
+                                            }
+                                            else
+                                            {
+                                                <span>Produto Removido</span>
+                                            }
+                                        </span>
+                                    </div>
+                                </td>
+                                
+                                <td>
+                                    <div class="comment-bubble">
+                                        @item.Texto
+                                    </div>
+
+                                    @if (!string.IsNullOrEmpty(item.Resposta))
+                                    {
+                                        <div class="reply-bubble">
+                                            <i class="bi bi-arrow-return-right me-1"></i>
+                                            <span class="reply-badge">Resposta</span>
+                                            @item.Resposta
+                                        </div>
+                                    }
+                                </td>
+
+                                <td>
+                                    <div class="text-muted small">
+                                        <i class="bi bi-calendar3 me-1"></i> @item.DataComentario.ToString("dd/MM/yy")<br>
+                                        <i class="bi bi-clock me-1"></i> @item.DataComentario.ToString("HH:mm")
+                                    </div>
+                                    @if (string.IsNullOrEmpty(item.Resposta))
+                                    {
+                                        <span class="badge bg-warning text-dark mt-2 rounded-pill">Pendente</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success bg-opacity-25 text-success mt-2 rounded-pill">Respondido</span>
+                                    }
+                                </td>
+
+                                <td class="text-end pe-4">
+                                    <button class="btn-icon-circle btn-reply me-2"
+                                            onclick="abrirModalResposta(@item.Id, '@item.Usuario?.NomeCompleto')"
+                                            title="Responder">
+                                        <i class="bi bi-reply-fill"></i>
+                                    </button>
+
+                                    <form id="form-delete-@item.Id" asp-action="Delete" asp-route-id="@item.Id" method="post" class="d-inline">
+                                        <button type="button" class="btn-icon-circle btn-delete" title="Excluir" onclick="abrirModalDelete(@item.Id)">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* --- MODAL DE RESPONDER COMENTÁRIO (Mantido o seu original) --- *@
+<div class="modal fade" id="modalResposta" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content modal-content-custom">
+            <form asp-action="Responder" method="post">
+                <div class="modal-header modal-header-custom">
+                    <h5 class="modal-title fw-bold">
+                        <i class="bi bi-chat-dots-fill me-2"></i>Responder Comentário
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                
+                <div class="modal-body p-4">
+                    <input type="hidden" name="id" id="comentarioIdInput" />
+                    
+                    <div class="alert alert-light border d-flex align-items-center mb-4">
+                        <i class="bi bi-person-circle fs-4 text-primary me-3"></i>
+                        <div>
+                            <small class="text-muted text-uppercase fw-bold" style="font-size: 0.7rem;">Respondendo a</small>
+                            <div class="fw-bold text-dark" id="nomeUsuarioTexto">Nome do Cliente</div>
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold text-secondary small text-uppercase">Sua Resposta</label>
+                        <textarea name="respostaTexto" class="form-control input-custom" rows="5"
+                                  placeholder="Olá! Ficamos muito felizes com seu comentário..." required></textarea>
+                    </div>
+                </div>
+                
+                <div class="modal-footer border-0 pt-0 pb-4 pe-4">
+                    <button type="button" class="btn btn-light rounded-pill fw-bold px-4" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn-gradient-blue">
+                        <i class="bi bi-send-fill me-2"></i>Enviar Resposta
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@* --- NOVO MODAL DE DELETAR COMENTÁRIO --- *@
+<div class="modal fade modal-delete-custom" id="modalDelete" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
+        <div class="modal-content">
+            <div class="modal-body p-4 text-center position-relative">
+                
+                <div class="icon-box-delete">
+                    <i class="bi bi-trash3-fill"></i>
+                </div>
+                
+                <h4 class="fw-bold mb-2" style="color: #000269;">Apagar comentário?</h4>
+                <p class="text-muted mb-4" style="font-size: 0.95rem;">
+                    Esta ação não pode ser desfeita. O comentário será excluído <strong class="text-danger">para sempre</strong>!
+                </p>
+
+                <div class="d-flex flex-column gap-2">
+                    <button type="button" class="btn btn-danger-gradient rounded-pill fw-bold py-2 shadow-sm" onclick="confirmarDelecao()">
+                        Sim, apagar!
+                    </button>
+                    <button type="button" class="btn btn-light rounded-pill fw-bold py-2 border shadow-sm text-secondary" data-bs-dismiss="modal">
+                        Cancelar e voltar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // LÓGICA DE RESPONDER (Sua original)
+    function abrirModalResposta(id, nome) {
+        document.getElementById('comentarioIdInput').value = id;
+        document.getElementById('nomeUsuarioTexto').innerText = nome;
+        var myModal = new bootstrap.Modal(document.getElementById('modalResposta'));
+        myModal.show();
+    }
+
+    // NOVA LÓGICA DE DELETAR
+    let comentarioIdParaDeletar = 0;
+
+    function abrirModalDelete(id) {
+        comentarioIdParaDeletar = id; // Guarda o ID do comentário clicado
+        var myModalDelete = new bootstrap.Modal(document.getElementById('modalDelete'));
+        myModalDelete.show(); // Mostra o modal na tela
+    }
+
+    function confirmarDelecao() {
+        if (comentarioIdParaDeletar > 0) {
+            // Pega o formulário exato daquele comentário e faz o envio (submit) para o Controller
+            document.getElementById('form-delete-' + comentarioIdParaDeletar).submit();
+        }
+    }
+</script>

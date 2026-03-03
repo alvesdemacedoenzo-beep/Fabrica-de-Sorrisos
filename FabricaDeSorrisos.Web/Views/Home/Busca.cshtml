@@ -1,0 +1,331 @@
+﻿@model FabricaDeSorrisos.Web.Models.CatalogViewModel
+@{
+    ViewData["Title"] = "Resultados da Busca";
+
+    // Lógica para definir a cor das Subcategorias conforme a Categoria principal selecionada
+    string corSubcategoria = "#6f42c1"; // Roxo (Cor padrão quando nenhuma categoria é selecionada)
+    string bgAtivo = "#6f42c1"; // Fundo ativo
+
+    if (Model.CategoriaId.HasValue)
+    {
+        switch (Model.CategoriaId.Value)
+        {
+            case 1: corSubcategoria = "#ff69b4"; bgAtivo = "#ff69b4"; break; // Brinquedos -> Rosa
+            case 2: corSubcategoria = "#f3dd24"; bgAtivo = "#f3dd24"; break; // Educativos -> Amarelo
+            case 3: corSubcategoria = "#000269"; bgAtivo = "#000269"; break; // Jogos -> Azul Escuro
+            case 4: corSubcategoria = "#28a745"; bgAtivo = "#28a745"; break; // Pets -> Verde
+            case 5: corSubcategoria = "#3c0145"; bgAtivo = "#3c0145"; break; // Fantasias -> Roxo Forte (#3c0145)
+            case 6: corSubcategoria = "#ff7f00"; bgAtivo = "#ff7f00"; break; // Pelúcias -> Laranja
+            case 7: corSubcategoria = "#ff0000"; bgAtivo = "#ff0000"; break; // Esportes -> Vermelho
+        }
+    }
+
+    // Se estiver na tela de Ofertas (via filtro de ofertas)
+    if (Context.Request.Query["ofertas"] == "true") { 
+        corSubcategoria = "#808080"; // Cinza
+        bgAtivo = "#808080"; // Cinza
+    } 
+}
+
+<div class="container py-4">
+    @* --- BOTÃO FLUTUANTE PARA MOBILE (ÍCONE ROXO) --- *@
+    <button class="btn-filtro-mobile d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasFiltros">
+        <i class="bi bi-filter-left fs-2"></i>
+    </button>
+
+    <div class="mb-4 d-flex align-items-center justify-content-between">
+        <h4 class="fw-bold text-secondary mb-0">
+            @if (!string.IsNullOrEmpty(Model.TermoBusca))
+            {
+                <span>Resultados para: <span class="text-primary">"@Model.TermoBusca"</span></span>
+            }
+            else
+            {
+                <span>Catálogo Completo</span>
+            }
+        </h4>
+        <a asp-action="Busca" class="btn btn-sm btn-limpar-degrade rounded-pill">Limpar Filtros</a>
+    </div>
+
+    <div class="row">
+        @* --- ÁREA DE FILTROS (VISÍVEL APENAS EM DESKTOP) --- *@
+        <div class="col-md-3 mb-4 d-none d-md-block">
+            @RenderFiltros()
+        </div>
+
+        @* --- ÁREA DE PRODUTOS --- *@
+        <div class="col-md-9">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                @if (Model.Produtos != null && Model.Produtos.Items.Any())
+                {
+                    @foreach (var item in Model.Produtos.Items)
+                    {
+                        <div class="col d-flex justify-content-center">
+                            <div class="card product-card-wireframe shadow-custom-blue border-0 position-relative rounded-5 overflow-hidden p-3" style="width: 276px; height: 450.07px;">
+                                <div class="position-relative text-center mb-2">
+                                    <a asp-controller="Home" asp-action="Detalhes" asp-route-id="@item.Id" class="d-block text-decoration-none">
+                                        <img src="@(item.ImagemUrl ?? "https://placehold.co/200?text=Foto")"
+                                             class="img-fluid" alt="@item.Nome"
+                                             style="height: 180px; object-fit: contain;">
+                                    </a>
+
+                                    <button class="btn btn-light rounded-circle position-absolute top-0 end-0 m-0 shadow-sm btn-favorito"
+                                            onclick="toggleFavorito(this, @item.Id)"
+                                            data-id="@item.Id"
+                                            data-auth="@User.Identity.IsAuthenticated.ToString().ToLower()">
+                                        <i class="bi bi-heart fs-5 text-secondary"></i>
+                                    </button>
+
+                                </div>
+                                <div class="card-body p-0 d-flex flex-column text-start">
+                                    <div class="text-warning mb-1" style="font-size: 0.8rem;">
+                                        <i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i><i class="bi bi-star-fill"></i>
+                                    </div>
+                                    <h5 class="fw-bold text-dark mb-1 fs-6 text-truncate">@item.Nome</h5>
+                                    <div class="mb-2 d-flex flex-wrap gap-2 align-items-center">
+                                        <small class="text-muted d-block">@item.Marca</small>
+                                        <span class="badge-categoria-amarela">@item.Categoria</span>
+                                    </div>
+                                    <div class="mt-auto">
+                                        <h4 class="fw-bold text-dark mb-0">R$ @item.Preco.ToString("N2")</h4>
+                                        <p class="text-muted" style="font-size: 0.75rem; margin-bottom: 10px;">
+                                            ou 10x R$ @((item.Preco / 10).ToString("N2")) s/juros
+                                        </p>
+                                        @if (item.Estoque > 0)
+                                        {
+                                            <button class="btn btn-success-custom w-100 rounded-4 py-2"
+                                                    onclick="adicionarAoCarrinho(this, @item.Id)">
+                                                <i class="bi bi-cart-fill me-1"></i> adicionar
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button class="btn btn-secondary w-100 rounded-4 disabled py-2">Esgotado</button>
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    @* --- MENSAGEM DE ERRO CENTRALIZADA --- *@
+                    <div class="col-12 text-center py-5 w-100">
+                        <i class="bi bi-emoji-frown fs-1 text-muted"></i>
+                        <h4 class="mt-3">Nenhum brinquedo encontrado.</h4>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+@* --- MENU LATERAL MOBILE (OFFCANVAS) --- *@
+<div class="offcanvas offcanvas-end d-md-none" tabindex="-1" id="offcanvasFiltros" aria-labelledby="offcanvasFiltrosLabel">
+    <div class="offcanvas-header border-bottom">
+        <h5 class="offcanvas-title fw-bold" id="offcanvasFiltrosLabel">Filtros</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="mb-4 d-grid">
+            <a asp-action="Busca" class="btn btn-sm btn-limpar-degrade rounded-pill">Limpar Filtros</a>
+        </div>
+        @RenderFiltros()
+    </div>
+</div>
+
+@* --- HELPER PARA NÃO REPETIR O CÓDIGO DOS FILTROS --- *@
+@functions {
+    public Microsoft.AspNetCore.Html.IHtmlContent RenderFiltros()
+    {
+        bool ehPets = Model.CategoriaId == 4;
+
+        return Html.Raw($@"
+            <div class='filtros-wrapper'>
+                {(Model.CategoriaId.HasValue && Model.SubCategorias.Any() ?
+                $@"<div class='d-flex align-items-center justify-content-between mb-3'>
+                        <h5 class='titulo-filtro-sub'>Subcategorias</h5>
+                        <a href='/Home/Busca' class='small text-muted text-decoration-none'><i class='bi bi-arrow-left'></i> Voltar</a>
+                    </div>
+                    <div class='d-flex flex-column gap-2 mb-4'>
+                        <a href='/Home/Busca?categoriaId={Model.CategoriaId}' class='btn-filter-custom {(Model.SubCategoriaId == null ? "active" : "")}'>Ver Tudo</a>
+                        {string.Join("", Model.SubCategorias.Select(sub => $@"
+                            <a href='/Home/Busca?categoriaId={Model.CategoriaId}&subCategoriaId={sub.Id}&termoBusca={Model.TermoBusca}' 
+                               class='btn-filter-custom {(Model.SubCategoriaId == sub.Id ? "active" : "")}'>{sub.Nome}</a>
+                        "))}
+                    </div>" :
+                $@"<h5 class='titulo-filtro-sub'>Categorias</h5>
+                    <div class='d-flex flex-column gap-2 mb-4'>
+                        <a href='/Home/Busca' class='btn-filter-custom {(Model.CategoriaId == null ? "active" : "")}'>Todas</a>
+                        {string.Join("", Model.Categorias.Select(cat => $@"
+                            <a href='/Home/Busca?categoriaId={cat.Id}&termoBusca={Model.TermoBusca}' 
+                               class='btn-filter-custom {(Model.CategoriaId == cat.Id ? "active" : "")}'>{cat.Nome}</a>
+                        "))}
+                    </div>")}
+
+                <hr class='text-muted opacity-25'>
+
+                {(!ehPets ? $@"
+                    <h6 class='titulo-filtro-idade'>Por Idade</h6>
+                    <div class='d-flex flex-wrap gap-2 mb-4'>
+                        {string.Join("", Model.FaixasEtarias.Where(i => !i.Descricao.Contains("Animal")).Select(idade => $@"
+                            <a href='/Home/Busca?categoriaId={Model.CategoriaId}&subCategoriaId={Model.SubCategoriaId}&faixaEtariaId={idade.Id}&termoBusca={Model.TermoBusca}' 
+                               class='badge rounded-pill text-decoration-none p-2 badge-idade-custom {(Model.FaixaEtariaId == idade.Id ? "active" : "")}'>{idade.Descricao}</a>
+                        "))}
+                    </div>" : "")}
+
+                {(!ehPets ? $@"
+                    <h6 class='titulo-filtro-pers'>Personagens</h6>
+                    <div class='d-flex flex-wrap gap-2 mb-4'>
+                        {string.Join("", Model.Personagens.Select(pers => $@"
+                        <a href='/Home/Busca?categoriaId={Model.CategoriaId}&subCategoriaId={Model.SubCategoriaId}&personagemId={pers.Id}&termoBusca={Model.TermoBusca}' 
+                               class='badge rounded-pill text-decoration-none p-2 badge-pers-custom {(Model.PersonagemId == pers.Id ? "active" : "")}'>{pers.Nome}</a>
+                        "))}
+                    </div>" : "")}
+
+                <h6 class='titulo-filtro-marcas'>Marcas</h6>
+                <div class='d-flex flex-wrap gap-2'>
+                    {string.Join("", Model.Marcas
+                        .Where(m => ehPets ? m.Nome == "Linha Pet" : m.Nome != "Linha Pet")
+                        .Select(marca => $@"
+                        <a href='/Home/Busca?categoriaId={Model.CategoriaId}&subCategoriaId={Model.SubCategoriaId}&marcaId={marca.Id}&termoBusca={Model.TermoBusca}' 
+                           class='badge rounded-pill text-decoration-none p-2 badge-marcas-custom {(Model.MarcaId == marca.Id ? "active" : "")}'>{marca.Nome}</a>
+                    "))}
+                </div>
+            </div>");
+    }
+}
+
+<style>
+    /* --- BOTÃO FLUTUANTE MOBILE (ROXO) --- */
+    .btn-filtro-mobile {
+        position: fixed;
+        bottom: 25px;
+        left: 25px !important; /* Agora no canto esquerdo */
+        right: auto !important;
+        width: 65px;
+        height: 65px;
+        background-color: white;
+        color: #6f42c1;
+        border: 1px solid #e0e0e0;
+        border-radius: 50%;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        z-index: 1050;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s ease;
+    }
+
+        .btn-filtro-mobile:active {
+            transform: scale(0.9);
+        }
+
+    /* --- OFFCANVAS CONFIG --- */
+    .offcanvas {
+        width: 85% !important;
+        border-radius: 30px 0 0 30px;
+    }
+
+    /* --- TÍTULOS DOS FILTROS --- */
+    .titulo-filtro-sub {
+        color: @corSubcategoria !important;
+        font-weight: bold;
+        font-size: 1.3rem;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+    }
+
+    .titulo-filtro-idade {
+        color: #f3dd24 !important;
+        font-weight: bold;
+        margin-bottom: 10px;
+        margin-top: 15px;
+    }
+
+    .titulo-filtro-pers {
+        color: #00ccff !important;
+        font-weight: bold;
+        margin-bottom: 10px;
+        margin-top: 15px;
+    }
+
+    .titulo-filtro-marcas {
+        color: #000269 !important;
+        font-weight: bold;
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+        margin-top: 15px;
+    }
+
+    /* --- FILTROS --- */
+    .btn-filter-custom {
+        border: 2px solid @corSubcategoria !important;
+        color: #333;
+        background-color: white;
+        border-radius: 50px;
+        padding: 8px 15px;
+        text-align: left;
+        transition: all 0.3s;
+        font-weight: 500;
+        text-decoration: none;
+        display: block;
+        margin-bottom: 8px;
+    }
+
+        .btn-filter-custom:hover {
+            background-color: rgba(0,0,0,0.03);
+            transform: translateX(5px);
+            color: @corSubcategoria;
+        }
+
+        .btn-filter-custom.active {
+            background-color: @bgAtivo !important;
+            border-color: @corSubcategoria !important;
+            color: white !important;
+            font-weight: bold;
+        }
+
+    .badge-idade-custom {
+        border: 2px solid #f3dd24 !important;
+        color: #333;
+        background: white;
+        transition: 0.3s;
+    }
+
+        .badge-idade-custom:hover {
+            background-color: #fffde7 !important;
+        }
+
+        .badge-idade-custom.active {
+            background-color: #f3dd24 !important;
+            color: #000 !important;
+            font-weight: bold;
+        }
+
+    .badge-pers-custom {
+        border: 2px solid #00ccff !important;
+        color: #333;
+        background: white;
+        transition: 0.3s;
+    }
+
+        .badge-pers-custom.active {
+            background-color: #00ccff !important;
+            color: white !important;
+        }
+
+    .badge-marcas-custom {
+        border: 2px solid #000269 !important;
+        color: #333;
+        background: white;
+        transition: 0.3s;
+    }
+
+        .badge-marcas-custom.active {
+            background-color: #000269 !important;
+            color: white !important;
+        }
+
+</style>

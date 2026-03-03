@@ -1,0 +1,207 @@
+﻿/* =========================================
+   ESTILOS DO SUPORTE (CHAT) - CORRIGIDO
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+:root {
+    --cor-azul: #00BAF6;
+    --cor-azul-escuro: #000269;
+    --cor-rosa: #F66CD8;
+    --bg-chat: #f0f2f5;
+    --bg-msg-admin: #e3f2fd;
+    --bg-msg-user: #ffffff;
+}
+
+/* Container que segura a tela toda */
+.suporte-container {
+    font-family: 'Nunito', sans-serif;
+    color: var(--cor-azul-escuro);
+    height: calc(100vh - 85px); /* Altura exata da tela menos o menu */
+    overflow: hidden; /* Impede rolagem na página inteira */
+    padding-bottom: 15px;
+}
+
+.page-title {
+    font-weight: 800;
+    color: var(--cor-azul-escuro);
+    margin-bottom: 10px;
+    font-size: 1.5rem;
+}
+
+/* --- CARD PRINCIPAL (O ENVELOPE) --- */
+.card-chat {
+    border: none;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0, 2, 105, 0.1);
+    overflow: hidden;
+    height: 100%;
+}
+
+/* --- ESTRUTURA LADO A LADO (FLEXBOX) --- */
+.layout-chat {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* COLUNA ESQUERDA (SIDEBAR) */
+.area-sidebar {
+    width: 340px; /* Largura FIXA */
+    min-width: 340px;
+    border-right: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    background-color: #fff;
+    height: 100%;
+}
+
+/* COLUNA DIREITA (MENSAGENS) */
+.area-mensagens {
+    flex: 1; /* Ocupa todo o espaço restante */
+    display: flex;
+    flex-direction: column;
+    background-color: var(--bg-chat);
+    background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+    background-size: 20px 20px;
+    height: 100%;
+    min-width: 0; /* Impede que o chat empurre a sidebar */
+}
+
+/* --- ELEMENTOS DA SIDEBAR --- */
+.nav-pills-custom {
+    background-color: #f8f9fa;
+    padding: 5px;
+    margin: 15px;
+    border-radius: 50px;
+    flex-shrink: 0;
+}
+
+    .nav-pills-custom .nav-link {
+        border-radius: 50px;
+        font-weight: 800;
+        color: #6c757d;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+    }
+
+        .nav-pills-custom .nav-link.active {
+            background-color: #fff;
+            color: var(--cor-azul);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+/* Lista de Usuários (Com Scroll Próprio) */
+#listaUsuarios {
+    flex-grow: 1;
+    overflow-y: auto; /* Barra de rolagem aqui */
+    height: 100%;
+}
+
+    /* Estilo dos itens da lista */
+    #listaUsuarios .list-group-item {
+        border: none;
+        border-bottom: 1px solid #f5f5f5;
+        padding: 15px 20px;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+        #listaUsuarios .list-group-item:hover {
+            background-color: #f8fbff;
+        }
+
+        #listaUsuarios .list-group-item.active {
+            background-color: #eaf6ff;
+            color: var(--cor-azul-escuro);
+            border-left: 4px solid var(--cor-azul);
+        }
+
+/* --- ELEMENTOS DO CHAT --- */
+.chat-header-custom {
+    background: #fff;
+    padding: 15px 25px;
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    flex-shrink: 0;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-avatar-large {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(135deg, var(--cor-azul), var(--cor-azul-escuro));
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+/* Corpo das Mensagens (Scroll aqui) */
+#adminChatBody {
+    flex: 1;
+    overflow-y: auto; /* Barra de rolagem aqui */
+    padding: 20px;
+    scroll-behavior: smooth;
+}
+
+/* Input Area */
+.chat-input-wrapper {
+    background: #fff;
+    padding: 20px;
+    border-top: 1px solid #eee;
+    flex-shrink: 0;
+}
+
+.input-chat-custom {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 50px;
+    padding: 12px 25px;
+}
+
+    .input-chat-custom:focus {
+        background-color: #fff;
+        border-color: var(--cor-azul);
+        box-shadow: 0 0 0 4px rgba(0, 186, 246, 0.1);
+    }
+
+.btn-send-custom {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cor-rosa), var(--cor-azul));
+    border: none;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- SCROLLBARS PERSONALIZADAS (Bonitas) --- */
+/* Funciona no Chrome, Edge, Safari */
+#listaUsuarios::-webkit-scrollbar,
+#adminChatBody::-webkit-scrollbar {
+    width: 6px;
+}
+
+#listaUsuarios::-webkit-scrollbar-track,
+#adminChatBody::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#listaUsuarios::-webkit-scrollbar-thumb,
+#adminChatBody::-webkit-scrollbar-thumb {
+    background-color: #d1d5db;
+    border-radius: 20px;
+}
+
+    #listaUsuarios::-webkit-scrollbar-thumb:hover,
+    #adminChatBody::-webkit-scrollbar-thumb:hover {
+        background-color: var(--cor-azul);
+    }

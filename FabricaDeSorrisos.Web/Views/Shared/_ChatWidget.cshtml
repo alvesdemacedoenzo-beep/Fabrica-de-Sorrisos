@@ -1,0 +1,139 @@
+﻿@if (User.Identity.IsAuthenticated)
+{
+    <button id="btnAbrirChat" onclick="toggleChat()" class="btn-chat-float shadow-lg">
+        <i class="bi bi-chat-dots-fill fs-4"></i>
+
+        <span id="chatBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none" style="font-size: 0.75rem; border: 2px solid white;">
+            0
+            <span class="visually-hidden">mensagens não lidas</span>
+        </span>
+    </button>
+
+    <div id="janelaChat" class="card shadow-lg chat-window d-none animate__animated animate__fadeInUp">
+
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center py-3">
+            <div class="d-flex align-items-center gap-2">
+                <i class="bi bi-headset fs-5"></i>
+                <span class="fw-bold">Suporte Online</span>
+            </div>
+            <button onclick="toggleChat()" class="btn btn-sm text-white hover-opacity p-0">
+                <i class="bi bi-x-lg fs-6"></i>
+            </button>
+        </div>
+
+        <div id="chatBody" class="card-body bg-light overflow-auto" style="height: 350px;">
+            <div class="h-100 d-flex flex-column align-items-center justify-content-center text-muted small opacity-75">
+                <div class="spinner-border text-primary mb-2" role="status" style="width: 1.5rem; height: 1.5rem;"></div>
+                <p>Conectando ao suporte...</p>
+            </div>
+        </div>
+
+        <div class="card-footer bg-white p-2 border-top">
+            <form id="formChat" onsubmit="enviarMensagem(event)" class="d-flex gap-2 align-items-center">
+                <input type="text" id="msgInput" class="form-control rounded-pill border-0 bg-light px-3" placeholder="Digite sua dúvida..." autocomplete="off">
+                <button type="submit" class="btn btn-primary rounded-circle shadow-sm d-flex align-items-center justify-content-center" style="width: 40px; height: 40px; min-width: 40px;">
+                    <i class="bi bi-send-fill" style="font-size: 0.9rem; margin-left: 2px;"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <style>
+        .btn-chat-float {
+            position: fixed; /* Isso garante que ele flutue */
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #0d6efd, #0a58ca);
+            color: white;
+            border: none;
+            z-index: 10000; /* Z-index bem alto para ficar acima de tudo */
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+            .btn-chat-float:hover {
+                transform: scale(1.1);
+                box-shadow: 0 0.5rem 1rem rgba(13, 110, 253, 0.4) !important;
+            }
+
+        .chat-window {
+            position: fixed;
+            bottom: 100px; /* Logo acima do botão */
+            right: 30px;
+            width: 360px;
+            z-index: 10000;
+            border-radius: 16px;
+            border: none;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            background-color: white;
+        }
+
+        /* Classes utilitárias visuais */
+        .hover-opacity:hover {
+            opacity: 0.7;
+        }
+
+        .msg-row {
+            display: flex;
+            margin-bottom: 12px;
+            width: 100%;
+        }
+
+        .msg-bala {
+            max-width: 85%;
+            padding: 10px 14px;
+            border-radius: 18px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            position: relative;
+            word-wrap: break-word;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+        }
+
+        /* Cliente (Verde) */
+        .msg-me {
+            justify-content: flex-end;
+        }
+
+            .msg-me .msg-bala {
+                background-color: #d1e7dd;
+                color: #0f5132;
+                border-bottom-right-radius: 4px;
+            }
+
+        /* Admin (Branco) */
+        .msg-admin {
+            justify-content: flex-start;
+        }
+
+            .msg-admin .msg-bala {
+                background-color: #ffffff;
+                border: 1px solid #dee2e6;
+                color: #212529;
+                border-bottom-left-radius: 4px;
+            }
+
+        /* Scrollbar */
+        #chatBody::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #chatBody::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        #chatBody::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+    </style>
+}

@@ -1,0 +1,204 @@
+﻿/* =========================================
+   ESTILOS DO CRUD DE PERSONAGENS
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+:root {
+    --cor-amarelo: #F3DD24;
+    --cor-amarelo-escuro: #e6c800; /* Um tom abaixo para degradê */
+    --cor-azul-escuro: #000269;
+    --cor-azul: #00BAF6;
+    --cor-rosa: #F66CD8;
+    --bg-input: #f8f9fa;
+    --border-input: #e9ecef;
+}
+
+.personagens-container {
+    font-family: 'Nunito', sans-serif;
+    color: var(--cor-azul-escuro);
+}
+
+/* --- CABEÇALHOS --- */
+.page-title {
+    font-weight: 800;
+    color: var(--cor-azul-escuro);
+    margin-bottom: 0;
+}
+
+.page-subtitle {
+    font-weight: 700;
+    color: #6c757d;
+}
+
+/* --- CARDS --- */
+.card-custom {
+    border: none;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0, 2, 105, 0.08);
+    overflow: hidden;
+}
+
+.card-header-custom {
+    /* Amarelo vibrante com texto Azul Escuro para leitura perfeita */
+    background: linear-gradient(135deg, var(--cor-amarelo) 0%, var(--cor-amarelo-escuro) 100%);
+    color: var(--cor-azul-escuro); /* Texto escuro no fundo amarelo */
+    padding: 20px 25px;
+    border: none;
+}
+
+.card-title-dark {
+    font-weight: 800;
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--cor-azul-escuro);
+}
+
+/* --- TABELA --- */
+.table-custom thead th {
+    background-color: #f1f5f9;
+    color: var(--cor-azul-escuro);
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    border: none;
+    padding: 15px 25px;
+}
+
+.table-custom tbody tr {
+    transition: background-color 0.2s;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+    .table-custom tbody tr:hover {
+        background-color: #fffae6; /* Amarelo bem clarinho no hover */
+    }
+
+.table-custom td {
+    vertical-align: middle;
+    padding: 15px 25px;
+    font-weight: 600;
+    color: #444;
+}
+
+/* Imagem redonda do personagem */
+.avatar-wrapper {
+    width: 60px;
+    height: 60px;
+    padding: 2px;
+    background: #fff;
+    border: 2px solid var(--cor-amarelo); /* Borda amarela */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* --- INPUTS --- */
+.label-custom {
+    font-weight: 700;
+    color: var(--cor-azul-escuro);
+    margin-bottom: 8px;
+}
+
+.input-custom {
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-input);
+    border-radius: 12px;
+    padding: 12px 15px;
+    font-weight: 600;
+    color: #495057;
+    transition: all 0.3s;
+}
+
+    .input-custom:focus {
+        background-color: #fff;
+        border-color: var(--cor-amarelo);
+        box-shadow: 0 0 0 4px rgba(243, 221, 36, 0.25); /* Glow Amarelo */
+    }
+
+/* --- BOTÕES --- */
+/* Botão Novo (Rosa/Amarelo - Padrão) */
+.btn-gradient-primary {
+    background: linear-gradient(90deg, var(--cor-rosa), var(--cor-amarelo));
+    border: none;
+    color: white;
+    font-weight: 800;
+    border-radius: 50px;
+    padding: 10px 25px;
+    box-shadow: 0 4px 15px rgba(246, 108, 216, 0.3);
+    transition: transform 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+    .btn-gradient-primary:hover {
+        transform: translateY(-2px);
+        color: white;
+    }
+
+/* Botão Salvar (Azul - Padrão) */
+.btn-gradient-blue {
+    background: linear-gradient(90deg, var(--cor-azul), var(--cor-azul-escuro));
+    border: none;
+    color: white;
+    font-weight: 800;
+    border-radius: 50px;
+    padding: 12px 30px;
+    box-shadow: 0 4px 15px rgba(0, 186, 246, 0.3);
+    transition: transform 0.2s;
+    display: inline-flex;
+    align-items: center;
+}
+
+    .btn-gradient-blue:hover {
+        transform: translateY(-2px);
+        color: white;
+    }
+
+.btn-icon-circle {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    border: 1px solid #eee;
+    background: white;
+}
+
+    .btn-icon-circle:hover {
+        background-color: var(--cor-amarelo);
+        color: var(--cor-azul-escuro) !important; /* Texto escuro no amarelo */
+        border-color: var(--cor-amarelo);
+    }
+
+.btn-back {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--cor-azul-escuro);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+    text-decoration: none;
+}
+
+    .btn-back:hover {
+        transform: scale(1.1);
+        color: var(--cor-amarelo-escuro);
+    }

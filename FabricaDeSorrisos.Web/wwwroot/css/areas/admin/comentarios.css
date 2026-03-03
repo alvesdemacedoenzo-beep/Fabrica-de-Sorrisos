@@ -1,0 +1,191 @@
+﻿/* =========================================
+   ESTILOS DE COMENTÁRIOS
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+:root {
+    --cor-azul: #00BAF6;
+    --cor-azul-escuro: #000269;
+    --cor-rosa: #F66CD8;
+    --cor-verde: #00C709;
+    --cor-amarelo: #F3DD24;
+    --bg-input: #f8f9fa;
+    --border-input: #e9ecef;
+}
+
+.comentarios-container {
+    font-family: 'Nunito', sans-serif;
+    color: var(--cor-azul-escuro);
+}
+
+/* --- CABEÇALHOS --- */
+.page-title {
+    font-weight: 800;
+    color: var(--cor-azul-escuro);
+    margin-bottom: 0;
+}
+
+.page-subtitle {
+    font-weight: 700;
+    color: #6c757d;
+}
+
+/* --- CARDS --- */
+.card-custom {
+    border: none;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+}
+
+.card-header-custom {
+    /* Gradiente Azul Claro (Comunicação) */
+    background: linear-gradient(135deg, var(--cor-azul) 0%, #008dc9 100%);
+    color: white;
+    padding: 20px 25px;
+    border: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+}
+
+/* --- TABELA --- */
+.table-custom thead th {
+    background-color: #f1f5f9;
+    color: var(--cor-azul-escuro);
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    border: none;
+    padding: 15px 20px;
+}
+
+.table-custom tbody tr {
+    transition: background-color 0.2s;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+    .table-custom tbody tr:hover {
+        background-color: #f0faff; /* Azulzinho muito leve */
+    }
+
+.table-custom td {
+    vertical-align: top; /* Alinha ao topo pois comentários podem ser longos */
+    padding: 20px;
+    font-weight: 600;
+    color: #444;
+}
+
+/* --- BALÕES DE FALA --- */
+.comment-bubble {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 12px;
+    padding: 12px 15px;
+    font-size: 0.95rem;
+    color: #555;
+    position: relative;
+    border-top-left-radius: 0; /* Estilo de balão */
+}
+
+.reply-bubble {
+    background-color: #fff0fa; /* Rosa bem clarinho */
+    border: 1px solid #fce4f5;
+    border-left: 4px solid var(--cor-rosa);
+    border-radius: 12px;
+    padding: 10px 15px;
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.reply-badge {
+    background-color: var(--cor-rosa);
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 10px;
+    margin-right: 5px;
+    text-transform: uppercase;
+    font-weight: 800;
+}
+
+/* --- BOTÕES --- */
+.btn-icon-circle {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    border: 1px solid #eee;
+    background: white;
+}
+
+.btn-reply {
+    color: var(--cor-azul);
+    background-color: #eafaff;
+    border-color: #d6f3ff;
+}
+
+    .btn-reply:hover {
+        background-color: var(--cor-azul);
+        color: white;
+        transform: translateY(-2px);
+    }
+
+.btn-delete {
+    color: #dc3545;
+}
+
+    .btn-delete:hover {
+        background-color: #dc3545;
+        color: white;
+    }
+
+/* --- MODAL --- */
+.modal-header-custom {
+    background: linear-gradient(135deg, var(--cor-azul) 0%, var(--cor-azul-escuro) 100%);
+    color: white;
+    border-bottom: none;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    padding: 20px;
+}
+
+.modal-content-custom {
+    border: none;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.input-custom {
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-input);
+    border-radius: 12px;
+    padding: 12px;
+}
+
+    .input-custom:focus {
+        border-color: var(--cor-azul);
+        box-shadow: 0 0 0 4px rgba(0, 186, 246, 0.1);
+    }
+
+.btn-gradient-blue {
+    background: linear-gradient(90deg, var(--cor-azul), var(--cor-azul-escuro));
+    border: none;
+    color: white;
+    font-weight: 800;
+    border-radius: 50px;
+    padding: 10px 30px;
+    box-shadow: 0 4px 15px rgba(0, 186, 246, 0.3);
+}
+
+    .btn-gradient-blue:hover {
+        transform: translateY(-2px);
+        color: white;
+    }

@@ -1,0 +1,126 @@
+﻿:root {
+    --admin-primary: #00BAF6;
+    --admin-primary-dark: #0056b3;
+    --admin-bg: #eef2f6;
+    --sidebar-bg: linear-gradient(180deg, #00BAF6 0%, #000269 100%);
+    --text-white: #ffffff;
+    --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+body.admin-body {
+    background-color: var(--admin-bg);
+    font-family: 'Inter', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    margin: 0;
+}
+
+.admin-wrapper {
+    display: flex;
+    height: 100vh;
+    padding: 20px;
+    gap: 20px;
+}
+
+/* --- SIDEBAR (MENU AZUL) --- */
+.admin-sidebar {
+    width: 260px;
+    min-width: 260px;
+    background: var(--sidebar-bg);
+    border-radius: 20px;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: var(--card-shadow);
+    overflow-y: auto; /* Permite rolar */
+    /* CORREÇÃO: Scrollbar Personalizada */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: rgba(255,255,255,0.3) transparent; /* Firefox */
+}
+
+    /* Scrollbar Webkit (Chrome, Edge, Safari) */
+    .admin-sidebar::-webkit-scrollbar {
+        width: 6px; /* Bem fininha */
+    }
+
+    .admin-sidebar::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    .admin-sidebar::-webkit-scrollbar-thumb {
+        background-color: rgba(255, 255, 255, 0.3); /* Branco transparente */
+        border-radius: 20px; /* Redondinha */
+    }
+
+        .admin-sidebar::-webkit-scrollbar-thumb:hover {
+            background-color: rgba(255, 255, 255, 0.5); /* Mais claro ao passar o mouse */
+        }
+
+.admin-logo h3 {
+    font-weight: 800;
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* ITENS DO MENU */
+.admin-menu-item {
+    display: flex;
+    align-items: center;
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    padding: 12px 15px;
+    margin-bottom: 5px;
+    border-radius: 12px;
+    font-weight: 500;
+    transition: all 0.3s;
+}
+
+    .admin-menu-item:hover {
+        background: rgba(255,255,255,0.15);
+        color: white;
+        transform: translateX(5px);
+    }
+
+    .admin-menu-item.active {
+        background: white;
+        color: #0056b3;
+        font-weight: 700;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    .admin-menu-item i {
+        font-size: 1.2rem;
+        margin-right: 10px;
+        width: 24px;
+        text-align: center;
+    }
+
+.menu-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.6);
+    margin-top: 20px;
+    margin-bottom: 5px;
+    padding-left: 15px;
+    font-weight: 700;
+}
+
+.btn-voltar {
+    margin-top: auto;
+    background: rgba(0,0,0,0.2);
+    justify-content: center;
+    color: white !important;
+}
+
+/* --- CONTEÚDO PRINCIPAL --- */
+.admin-content {
+    flex: 1;
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    overflow-y: auto;
+    box-shadow: var(--card-shadow);
+    position: relative;
+}

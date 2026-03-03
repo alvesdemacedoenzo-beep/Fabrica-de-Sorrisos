@@ -1,0 +1,211 @@
+﻿/* =========================================
+   ESTILOS DA ÁREA "MEUS PEDIDOS" (CLIENTE)
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+:root {
+    --cor-azul-escuro: #000269;
+    --cor-azul-claro: #00BAF6;
+    --cor-amarelo: #F3DD24;
+    --cor-verde: #00C709;
+    --cor-rosa: #F66CD8;
+    --bg-suave: #f8f9fa;
+}
+
+.pedidos-wrapper {
+    font-family: 'Nunito', sans-serif;
+    color: var(--cor-azul-escuro);
+}
+
+.page-title-blue {
+    color: var(--cor-azul-escuro);
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+/* --- EFEITOS GERAIS --- */
+.hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+    .hover-lift:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(0, 2, 105, 0.1) !important;
+    }
+
+.rounded-xl {
+    border-radius: 20px !important;
+}
+
+/* --- BOTÕES GRADIENTE --- */
+.btn-gradient-blue {
+    background: linear-gradient(135deg, var(--cor-azul-claro) 0%, var(--cor-azul-escuro) 100%);
+    border: none;
+    color: white;
+    font-weight: 700;
+    padding: 10px 25px;
+    transition: all 0.3s;
+}
+
+    .btn-gradient-blue:hover {
+        background: linear-gradient(135deg, var(--cor-azul-escuro) 0%, var(--cor-azul-claro) 100%);
+        color: white;
+        box-shadow: 0 5px 15px rgba(0, 186, 246, 0.3);
+    }
+
+.btn-gradient-yellow {
+    background: linear-gradient(135deg, var(--cor-amarelo) 0%, #e6c800 100%);
+    border: none;
+    color: var(--cor-azul-escuro);
+    font-weight: 800;
+    padding: 12px 35px;
+    box-shadow: 0 5px 15px rgba(243, 221, 36, 0.3);
+    transition: all 0.3s;
+}
+
+    .btn-gradient-yellow:hover {
+        transform: scale(1.05);
+        color: var(--cor-azul-escuro);
+    }
+
+.btn-back-custom {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    color: var(--cor-azul-claro);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: all 0.2s;
+}
+
+    .btn-back-custom:hover {
+        background: var(--cor-azul-claro);
+        color: white;
+        transform: scale(1.1);
+    }
+
+/* --- CARDS DE PEDIDO (INDEX) --- */
+.card-pedido {
+    border: none;
+    background: #fff;
+    overflow: hidden;
+}
+
+.card-pedido-header {
+    background: #fff;
+    padding: 20px;
+    border-bottom: 2px dashed #f0f0f0;
+}
+
+.badge-status-custom {
+    font-weight: 700;
+    padding: 8px 15px;
+    border-radius: 30px;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+.badge-aguardando {
+    background-color: #fff8e1;
+    color: #b78c00;
+    border: 1px solid #ffeeba;
+}
+
+.badge-confirmado {
+    background-color: #e8f8e9;
+    color: var(--cor-verde);
+    border: 1px solid #c8e6c9;
+}
+
+.price-tag-large {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--cor-azul-escuro);
+    background: linear-gradient(90deg, var(--cor-azul-escuro), var(--cor-azul-claro));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* --- ESTILOS DE DETALHES --- */
+.section-header {
+    font-weight: 700;
+    color: var(--cor-azul-escuro);
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.item-pedido {
+    border: none;
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s;
+}
+
+    .item-pedido:hover {
+        background-color: #fdfdfd;
+    }
+
+    .item-pedido:last-child {
+        border-bottom: none;
+    }
+
+.img-container-item {
+    background-color: white;
+    padding: 5px;
+    border: 2px solid #f0f0f0;
+    border-radius: 15px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.03);
+}
+
+.resumo-financeiro {
+    background-color: #f8fbff; /* Azulzinho muito claro */
+    border-top: 2px dashed #e0eaff;
+}
+
+.total-final {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--cor-verde);
+}
+
+/* Cards de Info (Endereço/Pagamento) */
+.card-info-detalhes {
+    border: none;
+    background: #fff;
+    height: 100%;
+    padding: 25px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+    transition: transform 0.3s;
+}
+
+    .card-info-detalhes:hover {
+        transform: translateY(-3px);
+    }
+
+.border-top-blue {
+    border-top: 5px solid var(--cor-azul-claro) !important;
+}
+
+.border-top-green {
+    border-top: 5px solid var(--cor-verde) !important;
+}
+
+/* Estado Vazio */
+.empty-state-container {
+    background: #fff;
+    border: 3px dashed #e0e0e0;
+}
+
+.empty-icon-bg {
+    width: 120px;
+    height: 120px;
+    background: #f0f4ff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+}

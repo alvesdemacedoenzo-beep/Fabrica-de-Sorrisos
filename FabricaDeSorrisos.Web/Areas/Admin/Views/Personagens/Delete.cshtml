@@ -1,0 +1,49 @@
+﻿@model FabricaDeSorrisos.Domain.Entities.Personagem
+@{
+    ViewData["Title"] = "Excluir Personagem";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<link rel="stylesheet" href="~/css/areas/admin/personagens.css" />
+
+<div class="personagens-container container d-flex justify-content-center align-items-center" style="min-height: 60vh;">
+    
+    <div class="card-custom text-center p-5" style="max-width: 500px; width: 100%;">
+        <div class="mb-4">
+            <div class="bg-danger bg-opacity-10 text-danger rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 80px; height: 80px;">
+                <i class="bi bi-exclamation-triangle-fill fs-1"></i>
+            </div>
+        </div>
+
+        <h3 class="page-title mb-2">Tem certeza?</h3>
+        <p class="text-muted mb-4">
+            Você está prestes a excluir o personagem <br>
+            <strong class="fs-5 text-dark">"@Model.Nome"</strong>
+        </p>
+
+        @if (!string.IsNullOrEmpty(Model.ImagemUrl))
+        {
+            <div class="mb-4 d-flex justify-content-center">
+                <div class="avatar-wrapper shadow-sm border border-warning" style="width: 100px; height: 100px;">
+                    <img src="@Model.ImagemUrl" class="avatar-img">
+                </div>
+            </div>
+        }
+
+        <div class="alert alert-light border rounded-3 text-start small mb-4">
+            <i class="bi bi-info-circle me-1 text-primary"></i>
+            Isso removerá a associação deste personagem nos brinquedos cadastrados.
+        </div>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-danger rounded-pill fw-bold py-2 shadow-sm border-0">
+                    Sim, Excluir Personagem
+                </button>
+                <a asp-action="Index" class="btn btn-light rounded-pill fw-bold py-2 text-muted">
+                    Cancelar
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

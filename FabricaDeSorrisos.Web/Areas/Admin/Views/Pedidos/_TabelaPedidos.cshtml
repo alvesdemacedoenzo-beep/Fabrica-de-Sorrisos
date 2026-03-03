@@ -1,0 +1,64 @@
+﻿@model List<Pedido>
+
+<div class="table-responsive">
+    <table class="table table-custom mb-0">
+        <thead>
+            <tr>
+                <th class="ps-4">ID Pedido</th>
+                <th>Data</th>
+                <th>Cliente</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th class="text-end pe-4">Ação</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="ps-4">
+                        <span class="fw-bold text-dark">#@item.Id.ToString("D6")</span>
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <i class="bi bi-calendar-event text-muted me-2"></i>
+                            @item.DataPedido.ToString("dd/MM/yyyy") <small class="text-muted ms-1">@item.DataPedido.ToString("HH:mm")</small>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="bg-light rounded-circle p-2 me-2 text-primary">
+                                <i class="bi bi-person-fill"></i>
+                            </div>
+                            <span class="fw-bold">
+                                @(item.Usuario != null ? item.Usuario.NomeCompleto : "ID: " + item.UsuarioId)
+                            </span>
+                        </div>
+                    </td>
+                    <td>
+                        <span class="fw-bolder text-success">R$ @item.ValorTotal.ToString("N2")</span>
+                    </td>
+                    <td>
+                        @if (item.Status == "Aguardando Pagamento")
+                        {
+                            <span class="badge-status bg-pending">
+                                <i class="bi bi-hourglass-split me-1"></i> Aguardando
+                            </span>
+                        }
+                        else
+                        {
+                            <span class="badge-status bg-success-light">
+                                <i class="bi bi-check-all me-1"></i> @item.Status
+                            </span>
+                        }
+                    </td>
+                    <td class="text-end pe-4">
+                        <a asp-action="Detalhes" asp-route-id="@item.Id" class="btn-icon-circle" title="Ver Detalhes">
+                            <i class="bi bi-arrow-right-short fs-4"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

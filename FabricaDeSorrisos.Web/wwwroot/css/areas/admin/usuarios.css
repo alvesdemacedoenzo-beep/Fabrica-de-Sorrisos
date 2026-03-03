@@ -1,0 +1,270 @@
+﻿/* =========================================
+   ESTILOS DO CRUD DE USUÁRIOS
+   ========================================= */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap');
+
+:root {
+    --cor-roxo: #2E003F;
+    --cor-roxo-claro: #530073; /* Tom mais claro para degradê */
+    --cor-azul-escuro: #000269;
+    --bg-input: #f8f9fa;
+    --border-input: #e9ecef;
+}
+
+.usuarios-container {
+    font-family: 'Nunito', sans-serif;
+    color: var(--cor-azul-escuro);
+}
+
+/* --- CABEÇALHOS --- */
+.page-title {
+    font-weight: 800;
+    color: var(--cor-roxo);
+    margin-bottom: 0;
+}
+
+.page-subtitle {
+    font-weight: 700;
+    color: #6c757d;
+}
+
+/* --- CARDS --- */
+.card-custom {
+    border: none;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(46, 0, 63, 0.08); /* Sombra roxa bem suave */
+    overflow: hidden;
+}
+
+.card-header-custom {
+    /* Gradiente Roxo (#2E003F) */
+    background: linear-gradient(135deg, var(--cor-roxo) 0%, var(--cor-roxo-claro) 100%);
+    color: white;
+    padding: 20px 25px;
+    border: none;
+}
+
+.card-title-white {
+    font-weight: 700;
+    margin: 0;
+    font-size: 1.1rem;
+}
+
+/* --- TABELA --- */
+.table-custom thead th {
+    background-color: #fcfcfc;
+    color: var(--cor-roxo);
+    font-weight: 800;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    border: none;
+    padding: 15px 25px;
+}
+
+.table-custom tbody tr {
+    transition: background-color 0.2s;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+    .table-custom tbody tr:hover {
+        background-color: #fbf5ff; /* Roxo bem clarinho no hover */
+    }
+
+.table-custom td {
+    vertical-align: middle;
+    padding: 15px 25px;
+    font-weight: 600;
+    color: #444;
+}
+
+/* Avatar com Iniciais */
+.avatar-initials {
+    width: 45px;
+    height: 45px;
+    background-color: var(--cor-roxo);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1.1rem;
+    box-shadow: 0 4px 8px rgba(46, 0, 63, 0.2);
+}
+
+/* --- INPUTS --- */
+.label-custom {
+    font-weight: 700;
+    color: var(--cor-roxo);
+    margin-bottom: 8px;
+}
+
+.input-custom, .select-custom {
+    background-color: var(--bg-input);
+    border: 1px solid var(--border-input);
+    border-radius: 12px;
+    padding: 12px 15px;
+    font-weight: 600;
+    color: #495057;
+    transition: all 0.3s;
+}
+
+    .input-custom:focus, .select-custom:focus {
+        background-color: #fff;
+        border-color: var(--cor-roxo);
+        box-shadow: 0 0 0 4px rgba(46, 0, 63, 0.15); /* Glow Roxo */
+    }
+
+/* --- BOTÕES --- */
+/* Botão Novo/Salvar (Roxo) */
+.btn-gradient-purple {
+    background: linear-gradient(90deg, var(--cor-roxo), var(--cor-roxo-claro));
+    border: none;
+    color: white;
+    font-weight: 800;
+    border-radius: 50px;
+    padding: 10px 25px;
+    box-shadow: 0 4px 15px rgba(46, 0, 63, 0.3);
+    transition: transform 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+}
+
+    .btn-gradient-purple:hover {
+        transform: translateY(-2px);
+        color: white;
+    }
+
+.btn-icon-circle {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    border: 1px solid #eee;
+    background: white;
+}
+
+    .btn-icon-circle:hover {
+        background-color: var(--cor-roxo);
+        color: white !important;
+        border-color: var(--cor-roxo);
+    }
+
+.btn-back {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--cor-roxo);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+    text-decoration: none;
+}
+
+    .btn-back:hover {
+        transform: scale(1.1);
+        color: var(--cor-roxo);
+    }
+
+/* --- MODAL DE ERRO DE SENHA (PREMIUM) --- */
+.modal-content-error {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(46, 0, 63, 0.3);
+    overflow: hidden;
+}
+
+.modal-header-error {
+    background: linear-gradient(135deg, #dc3545 0%, #a71d2a 100%); /* Vermelho elegante para erro */
+    color: white;
+    border-bottom: none;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.error-icon-wrapper {
+    background-color: rgba(255, 255, 255, 0.2);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+    animation: pulseError 2s infinite;
+}
+
+.modal-body-error {
+    padding: 30px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.error-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0 0;
+    text-align: left;
+}
+
+    .error-list li {
+        padding: 12px 15px;
+        margin-bottom: 10px;
+        background-color: #fff5f5;
+        border-left: 4px solid #dc3545;
+        border-radius: 8px;
+        color: #842029;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+    }
+
+        .error-list li i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+.btn-fix-password {
+    background: var(--cor-roxo);
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 12px;
+    border-radius: 50px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: transform 0.2s;
+}
+
+    .btn-fix-password:hover {
+        background: var(--cor-roxo-claro);
+        color: white;
+        transform: scale(1.02);
+    }
+
+@keyframes pulseError {
+    0% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 15px rgba(255, 255, 255, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+    }
+}

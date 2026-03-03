@@ -1,0 +1,72 @@
+﻿@model FabricaDeSorrisos.Web.Models.RegisterViewModel
+@{
+    ViewData["Title"] = "Criar Conta";
+    Layout = null; // Remove a Navbar e o Footer padrão
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Fábrica de Sorrisos</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/account/account.css" />
+</head>
+<body>
+
+    <div class="login-wrapper">
+        <div class="login-content">
+            <a href="@Url.Action("Index", "Home")">
+                <img src="~/img/logo.png" alt="Logo Fábrica de Sorrisos" class="logo-img" />
+            </a>
+
+            <div class="login-card">
+                <h2 class="titulo-login">Crie sua Conta</h2>
+
+                <form asp-action="Register">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="input-group-custom">
+                        <label>Nome Completo</label>
+                        <input asp-for="NomeCompleto" placeholder="Ex: Maria Silva" />
+                        <span asp-validation-for="NomeCompleto" class="text-danger small"></span>
+                    </div>
+
+                    <div class="input-group-custom">
+                        <label>E-mail</label>
+                        <input asp-for="Email" placeholder="seu@email.com" />
+                        <span asp-validation-for="Email" class="text-danger small"></span>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="input-group-custom">
+                                <label>Senha</label>
+                                <input asp-for="Senha" type="password" placeholder="******" />
+                                <span asp-validation-for="Senha" class="text-danger small"></span>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group-custom">
+                                <label>Confirmar Senha</label>
+                                <input asp-for="ConfirmarSenha" type="password" placeholder="******" />
+                                <span asp-validation-for="ConfirmarSenha" class="text-danger small"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-2">
+                        <button type="submit" class="btn-logar">Criar Conta</button>
+                    </div>
+                </form>
+
+                <p class="footer-text-login">
+                    Já tem conta? <a asp-action="Login">Faça login</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
