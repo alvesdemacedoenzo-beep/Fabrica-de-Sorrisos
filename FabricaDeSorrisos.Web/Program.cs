@@ -9,8 +9,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-app.MapControllers();
-
 // ==========================================
 // 1. SERVIÇOS DO CONTAINER (DI)
 // ==========================================
@@ -44,10 +42,11 @@ builder.Services.AddScoped<IUserClaimsPrincipalFactory<ApplicationUser>, CustomC
 var app = builder.Build();
 
 // Configura o pipeline de requisições HTTP.
-if (!app.Environment.IsDevelopment())
-{
+
     app.UseSwagger();
     app.UseSwaggerUI();
+if (!app.Environment.IsDevelopment())
+{
     app.UseExceptionHandler("/Home/Error");
     // O valor default de HSTS é 30 dias.
     app.UseHsts();
@@ -75,6 +74,8 @@ app.MapControllerRoute(
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+app.MapControllers();
 
 // ==========================================
 // 4. DATABASE SEEDER (POPULAR BANCO)
