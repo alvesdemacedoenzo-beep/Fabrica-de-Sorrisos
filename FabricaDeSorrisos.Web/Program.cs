@@ -65,6 +65,8 @@ app.UseAuthorization();  // O que você pode fazer? (Permissões)
 // 3. ROTAS
 // ==========================================
 
+app.MapGet("/", () => Results.Redirect("/swagger"));
+
 // Rota de Admin (Áreas)
 app.MapControllerRoute(
     name: "areas",
