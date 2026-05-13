@@ -6,6 +6,14 @@ using System.Data.Common;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
+app.UseSwagger();
+app.UseSwaggerUI();
+
+app.MapControllers();
+
 // ==========================================
 // 1. SERVIÇOS DO CONTAINER (DI)
 // ==========================================
