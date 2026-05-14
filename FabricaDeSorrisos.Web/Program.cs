@@ -67,7 +67,7 @@ app.UseAuthorization();  // O que você pode fazer? (Permissões)
 // 3. ROTAS
 // ==========================================
 
-app.MapGet("/teste", () => "API OK 🚀");
+app.MapGet("/", () => "API OK 🚀");
 
 // Rota de Admin (Áreas)
 app.MapControllerRoute(
