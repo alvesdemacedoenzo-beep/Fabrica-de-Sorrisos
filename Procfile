@@ -1,1 +1,1 @@
-web: dotnet run --project ./FabricaDeSorrisos.Web/FabricaDeSorrisos.Web.csproj
+web: cd FabricaDeSorrisos.Web && dotnet run
