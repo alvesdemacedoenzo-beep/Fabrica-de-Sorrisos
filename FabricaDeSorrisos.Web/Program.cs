@@ -48,11 +48,28 @@ var app = builder.Build();
 
     app.UseSwagger();
     app.UseSwaggerUI();
-if (!app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Home/Error");
-    // O valor default de HSTS é 30 dias.
-    app.UseHsts();
+    using (var scope = app.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+
+        try
+        {
+            var context = services.GetRequiredService<FabricaDeSorrisos.Infrastructure.Persistence.AppDbContext>();
+            var userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+            var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+            await context.Database.MigrateAsync();
+            await FabricaDeSorrisos.Infrastructure.Persistence.Seed.DatabaseSeeder
+                .SeedAsync(userManager, roleManager, context);
+        }
+        catch (Exception ex)
+        {
+            var logger = services.GetRequiredService<ILogger<Program>>();
+            logger.LogError(ex, "Erro ao rodar o DatabaseSeeder.");
+        }
+    }
 }
 
 //app.UseHttpsRedirection();
